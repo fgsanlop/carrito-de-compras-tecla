@@ -8,8 +8,9 @@ async function getTendenciasMX() {
     let res = await fetch(url + 'trends/MLM');
     let json = await res.json();
     json.slice(0, 50).forEach(element => {
-        let tendencia = document.createElement('span');
-        tendencia.setAttribute('class', 'badge bg-secondary m-1 display-4 tendencia');     
+        let tendencia = document.createElement('a');
+        tendencia.setAttribute('href', '#productos');
+        tendencia.setAttribute('class', 'badge bg-secondary m-1 display-4 tendencia text-decoration-none text-light');     
         tendencia.setAttribute('onclick', 'buscarProductos("'+ element.keyword +'")');        
         tendencia.textContent = element.keyword;
         tendencias.appendChild(tendencia);         
@@ -35,7 +36,7 @@ async function buscarProductos(palabra) {
 
         let img = document.createElement('img')
         img.setAttribute('src', element.thumbnail);
-        img.setAttribute('class', 'card-img-top mx-auto');    
+        img.setAttribute('class', 'card-img-top mx-auto my-2');    
 
         let body = document.createElement('div');
         body.setAttribute('class', 'card-body');
