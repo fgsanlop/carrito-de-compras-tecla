@@ -5,7 +5,7 @@ let loader = document.getElementById('loader')
 let url = 'https://api.mercadolibre.com/';
 
 async function getTendenciasMX() {
-    let res = await fetch(url + 'trends/MLM');
+    let res = await fetch(url + 'trends/MLM/MLM1144');
     let json = await res.json();
     json.slice(0, 50).forEach(element => {
         let tendencia = document.createElement('a');
