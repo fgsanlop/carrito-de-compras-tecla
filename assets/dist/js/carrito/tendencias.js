@@ -7,6 +7,7 @@ let url = 'https://api.mercadolibre.com/';
 async function getTendenciasMX() {
     let res = await fetch(url + 'trends/MLM/MLM1144');
     let json = await res.json();
+    console.log(json);
     json.slice(0, 50).forEach(element => {
         let tendencia = document.createElement('a');
         tendencia.setAttribute('href', '#productos');
@@ -26,8 +27,25 @@ async function buscarProductos(palabra) {
     let json = await res.json();
 
     loader.classList.add('d-none');
+    console.log(json);
 
-    json.results.forEach(element => {
+    json.results.forEach(element => {        
+        /*
+        let html = `
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card shadow-sm h-100">
+                <img src="http://http2.mlstatic.com/D_969958-MLA32731593032_112019-I.jpg" class="card-img-top mx-auto my-2">
+                <div class="card-body">
+                    <p class="card-title text-muted">Nintendo  3ds 2ds New Super Mario Bros. 2 Color  Blanco Y Rojo</p>
+                    <h4 class="card-text">$ 5199 MXN</h4>
+                </div>
+                <div class="card-footer text-center">
+                    <a class="btn btn-primary" href="https://www.mercadolibre.com.mx/nintendo-3ds-2ds-new-super-mario-bros-2-color-blanco-y-rojo/p/MLM6311991" target="_blank">Ver más</a>
+                </div>
+            </div>
+        </div>        
+        `
+        */
         let col = document.createElement('div')
         col.setAttribute('class', 'col-sm-6 col-md-4 col-lg-3 mb-4');
         

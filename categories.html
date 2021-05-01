@@ -44,7 +44,7 @@
    
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
+    <div class="container">
       <a class="navbar-brand" href="#">
         <svg xmlns="http://www.w3.org/2000/svg" class="mx-2" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm1.336-5l1.977-7h-16.813l2.938 7h11.898zm4.969-10l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"/></svg>
         <strong>Tecla Store</strong>
@@ -55,10 +55,13 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Carrito</a>
+            <a class="nav-link" href="checkout.html">Carrito</a><!--Checkout-->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Mis compras</a>
+            <a class="nav-link" href="categories.html">Categorías</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Iniciar sesión</a><!--Despues de iniciar, ya puedes ver compras-->
           </li>
         </ul>
         <form class="d-flex">
@@ -88,7 +91,7 @@
   <div class="album py-5 bg-light">
     <div class="container">
       <div class="loader d-none mx-auto" id="loader"></div>
-      <div class="row" id="productos">        
+      <div class="row" id="productos">       
       </div>
     </div>
   </div>
