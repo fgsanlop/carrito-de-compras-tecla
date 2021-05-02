@@ -5,6 +5,7 @@ const buscarForm = document.getElementById('buscarForm');
 const buscarInput = document.getElementById('buscar');
 
 let url = 'https://api.mercadolibre.com/';
+//rama fgsanlop
 
 async function getTendenciasMX() {
     let res = await fetch(url + 'trends/MLM/MLM1144');
