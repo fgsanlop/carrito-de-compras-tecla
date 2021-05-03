@@ -27,7 +27,7 @@ async function buscarProductos(palabra) {
 
     loader.classList.toggle('d-none');
     
-    let res = await fetch(url + 'sites/MLM/search?q=' + palabra);
+    let res = await fetch(url + 'sites/MLM/search?category=MLM1144&q=' + palabra);
     let json = await res.json();
 
     productos.innerHTML = `<h4 class="col-12"><span class="text-muted">Mostrando resultados para: </span>${palabra}</h4>`;
