@@ -5,7 +5,6 @@ const buscarForm = document.getElementById('buscarForm');
 const buscarInput = document.getElementById('buscar');
 
 let url = 'https://api.mercadolibre.com/';
-//rama fgsanlop
 
 async function getTendenciasMX() {
     let res = await fetch(url + 'trends/MLM/MLM1144');
@@ -48,7 +47,8 @@ async function buscarProductos(palabra) {
                         <h4 class="card-text">$ ${element.price} ${element.currency_id}</h4>
                     </div>
                     <div class="card-footer text-center">
-                        <a class="btn btn-primary" href="${element.permalink}" target="_blank">Ver más</a>
+                        <a class="btn btn-primary" href="product.html?id=${element.id}" target="_blank">Ver más</a>
+                        <button class="btn btn-success" id="agregar" value="${element.id}">Agregar</button
                     </div>
                 </div>
             </div>        
