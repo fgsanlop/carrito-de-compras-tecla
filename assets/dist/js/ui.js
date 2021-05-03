@@ -58,10 +58,6 @@ async function buscarProductos(palabra) {
     }
 }
 
-let print = (lol) => {
-    console.log(lol)
-} 
-
 buscarForm.addEventListener('submit', event => {
     event.preventDefault();
     buscarProductos(buscarInput.value);
