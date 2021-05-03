@@ -48,7 +48,7 @@ async function buscarProductos(palabra) {
                     </div>
                     <div class="card-footer text-center">
                         <a class="btn btn-primary" href="product.html?id=${element.id}" target="_blank">Ver más</a>
-                        <button class="btn btn-success" id="agregar" value="${element.id}">Agregar</button
+                        <button class="btn btn-success" id="agregar" onclick="print('${element.id}')" value="${element.id}">Agregar</button
                     </div>
                 </div>
             </div>        
@@ -58,7 +58,9 @@ async function buscarProductos(palabra) {
     }
 }
 
-
+let print = (lol) => {
+    console.log(lol)
+} 
 
 buscarForm.addEventListener('submit', event => {
     event.preventDefault();
