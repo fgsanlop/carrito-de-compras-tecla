@@ -47,81 +47,12 @@
   <div class="container mt-n4">
     <h1 class="mb-4">Agregado a carrito</h1>
     <div class="row">
-      <div class="col-sm-12 col-md-8">
-        <div class="alert alert-dismissible alert-secondary">
-          <button type="button" class="close" value="id-producto">&times;</button>
-          <div class="row">
-            <div class="col-4">
-              <img src="https://www.turia.com.br/estilo/assets/images/empty.png" style="max-width: 100%;" alt="">
-            </div>
-            <div class="col">
-              <h4>Producto 1</h4>
-              <p>Descripción</p>
-              <p>Cantidad: 0</p>
-              <strong>$0.00</strong>
-            </div>
-          </div>   
-        </div>
-        <div class="alert alert-dismissible alert-secondary">
-          <button type="button" class="close" value="id-producto">&times;</button>
-          <div class="row">
-            <div class="col-4">
-              <img src="https://www.turia.com.br/estilo/assets/images/empty.png" style="max-width: 100%;" alt="">
-            </div>
-            <div class="col">
-              <h4>Producto 2</h4>
-              <p>Descripción</p>
-              <p>Cantidad: 0</p>
-              <strong>$0.00</strong>
-            </div>
-          </div>   
-        </div>
-        <div class="alert alert-dismissible alert-secondary">
-          <button type="button" class="close" value="id-producto">&times;</button>
-          <div class="row">
-            <div class="col-4">
-              <img src="https://www.turia.com.br/estilo/assets/images/empty.png" style="max-width: 100%;" alt="">
-            </div>
-            <div class="col">
-              <h4>Producto 3</h4>
-              <p>Descripción</p>
-              <p>Cantidad: 0</p>
-              <strong>$0.00</strong>
-            </div>
-          </div>   
-        </div>
+      <div class="col-sm-12 col-md-8" id="cart">
       </div>
-      <div class="col-sm-12 col-md-4">
+      <div class="col">
         <div class="card border-secondary">
-          <h3 class="card-title text-center mt-3">Resumen</h3>
-          <div class="card-body">
-            <table class="table table-borderless">
-              <thead>
-                <tr>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Precio</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Subtotal 1</td>
-                  <td>$ 0.00</td>
-                </tr>
-                <tr>
-                  <td>Subtotal 2</td>
-                  <td>$ 0.00</td>
-                </tr>
-                <tr>
-                  <td>Subtotal 3</td>
-                  <td>$ 0.00</td>
-                </tr>
-                <tr class="font-weight-bold h4">
-                  <td>Total</td>
-                  <td>$ 0.00</td>
-                </tr>
-              </tbody>              
-            </table>            
-            <button type="submit" class="btn btn-primary w-100">Pasar a pago</button>
+          <h3 class="card-title text-center mt-3 text-muted">Total</h3>
+          <div class="card-body text-center" id="total">                                
           </div>
         </div>
       </div>      
@@ -137,7 +68,7 @@
 <script src="https://bootswatch.com/_assets/js/custom.js"></script>
 
 <!--Scripts Carrito-->
-<script src="./assets/dist/js/ui.js"></script>
+<script type="module" src="./assets/dist/js/cart.js"></script>
 
       
 </body>

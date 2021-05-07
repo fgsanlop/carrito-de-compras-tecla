@@ -1,0 +1,22 @@
+{
+  "name": "carrito",
+  "version": "1.0.0",
+  "description": "",
+  "main": "carrito.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fgsanlop/carrito-de-compras-tecla.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fgsanlop/carrito-de-compras-tecla/issues"
+  },
+  "homepage": "https://github.com/fgsanlop/carrito-de-compras-tecla#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

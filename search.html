@@ -35,7 +35,7 @@
             <a class="nav-link" href="login.html">Iniciar sesión</a><!--Despues de iniciar, ya puedes ver compras-->
           </li>
         </ul>
-        <form class="d-flex ml-auto" id="buscarForm">
+        <form class="d-flex ml-auto" id="buscarForm" >
           <input class="form-control me-2" type="search" placeholder="¿Qué quieres comprar hoy?" id="buscar" required>
           <button class="btn btn-warning mx-2" type="submit">Buscar</button>
         </form>
@@ -43,44 +43,22 @@
     </div>
   </nav>
 </header>
-<main>
-  <section class="text-center container mt-n4">
-    <div class="row">
-      <div class="mx-auto">
-        <div class="jumbotron">
-          <h1 class="display-2">¡Bienvenido a Tecla Store!</h1>
-          <p class="lead">Productos sobre videojuegos más buscados en las últimas 24 horas en México</p>
-          <div id="tendencias" class="my-4"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <div class="pb-5 bg-light">
+<main> 
+  <div class="mt-n4 pb-5 bg-light">
     <div class="container">
       <div class="loader d-none mx-auto" id="loader"></div>
       <div class="row" id="productos">       
       </div>
     </div>
   </div>
-
 </main>
-
-<footer class="text-muted py-5">
-  <div class="container">
-    <p class="float-end mb-1">
-      <a href="#tendencias">Volver a arriba</a>
-    </p>    
-  </div>
-</footer>
 
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://bootswatch.com/_assets/js/custom.js"></script>
 
 <!--Scripts Carrito-->
-<script type="module" src="./assets/dist/js/index.js"></script>
+<script type="module" src="./assets/dist/js/search.js"></script>      
 
-      
 </body>
 </html>
