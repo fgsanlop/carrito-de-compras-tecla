@@ -1,24 +1,36 @@
 import MercadoLibre from './mercadolibre.js';
 import Product from './product.js';
 
+//Se usa para darle formato de dinero a los numeros
 let formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
 });    
 
 export default class UI {
+    //Obtiene los elementos de los distintos HTML donde se importe
     constructor(){
+        //Index
         this.tendencias = document.getElementById('tendencias');
+        //Index y busqueda
         this.productos = document.getElementById('productos');
         this.loader = document.getElementById('loader');
+        //Formulario de busqueda
         this.buscarForm = document.getElementById('buscarForm');
         this.buscarInput = document.getElementById('buscar');
-        
+        //Carrito
         this.cart = document.getElementById('cart');
         this.total = document.getElementById('total');
-        
+        //Detalle de producto
+        this.productTitle = document.getElementById('product-title');
+        this.productPrice = document.getElementById('product-price');  
+        this.productUpdated = document.getElementById('product-update');
+        this.productAddCartBtn = document.getElementById('product-add');
+        this.productDescription = document.getElementById('product-description');
+        this.productPictures = document.getElementById('product-pictures')
+        //Objeto MercadoLibre para las consultas
         this.ml = new MercadoLibre();        
-        
+        //Al iniciar el objeto UI en cualquier lugar, el formulario de busqueda funcionara en todas las paginas
         this.buscarForm.addEventListener('submit', () => {  
             this.buscarInput.name = "q";
             this.buscarForm.action = "search.html";
@@ -50,8 +62,7 @@ export default class UI {
         let json = await this.ml.buscarProductos(palabra);
         this.productos.innerHTML = `<h4 class="col-12"><span class="text-muted">Mostrando resultados para: </span>${palabra}</h4>`;
         
-        this.loader.classList.add('d-none');   
-                            
+        this.loader.classList.add('d-none');                              
     
         if (json.length == 0)
             this.productos.innerHTML += `<p class="col-12">No hay resultados para tu busqueda :(</h4>`;
@@ -246,6 +257,53 @@ export default class UI {
         this.cart.innerHTML = '';
         this.total.innerHTML = '';
         this.mostrarCarrito();
+    }
+
+    mostrarProducto = async (id) => {
+        let product = new Product(id);
+        await product.mapearProducto();
+        delete product.mapearProducto;
+        console.log(product);
+
+        this.productTitle.textContent = product.title;
+        this.productPrice.textContent = formatter.format(product.price) + " " + product.currency_id;
+        let date = new Date(product.updated)
+        this.productUpdated.textContent = date.toLocaleDateString();
+        this.productDescription.textContent = product.description;
+
+        this.productAddCartBtn.addEventListener('click', () => {
+            this.agregarProductoCarrito(product.id);
+        })        
+
+        let pictures = '';
+
+        for (let i = 0; i < product.pictures.length; i++) {
+            if(i == 0)            
+                pictures += `
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="${product.pictures[i]}">
+                </div>
+                `;     
+            else  
+                pictures += `
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="${product.pictures[i]}">
+                </div>
+                `;                      
+        }
+
+        this.productPictures.innerHTML = pictures;
+
+        
+
+        /*
+        this.productTitle = document.getElementById('product-title');
+        this.productPrice = document.getElementById('product-price');  
+        this.productUpdated = document.getElementById('product-update');
+        this.productAddCartBtn = document.getElementById('product-add');
+        this.productDescription = document.getElementById('product-description');
+        product-pictures
+        */
     }
 
 }
