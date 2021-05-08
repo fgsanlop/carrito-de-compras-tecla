@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.css">
+    <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
+    <link rel="stylesheet" href="./assets/dist/css/styles.css">
+    <title>Tecla Tienda Online</title>
+    <link rel="stylesheet" href="./assets/dist/css/loader.css">
+  </head>
+<body>
+   
+<header>
+  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mx-2" width="24" height="24" viewBox="0 0 24 24"><path fill="black" d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm1.336-5l1.977-7h-16.813l2.938 7h11.898zm4.969-10l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"/></svg>
+        <strong>Tecla Store</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="checkout.html">Carrito</a><!--Checkout-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="categories.html">Categorías</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Iniciar sesión</a><!--Despues de iniciar, ya puedes ver compras-->
+          </li>
+        </ul>
+        <form class="d-flex ml-auto" id="buscarForm">
+          <input class="form-control me-2" type="search" placeholder="¿Qué quieres comprar hoy?" id="buscar" required>
+          <button class="btn btn-warning mx-2" type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+  <section class="text-center container">
+     <br>
+    </br>
+    <div class="row">
+      <div class="mx-auto">
+        <body>
+        <!-- pagina contenido -->
+            <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="page-header">DualShock Controller for PlayStation 4</h1>
+              <br></br>
+            </div>
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="col-lg-6 mb-4">
+              <!-- imagen -->
+              <div class="">
+                <div class="main-product-image">
+                  <img src="https://cdnx.jumpseller.com/bootstrap/image/429450/resize/540/675?1439530709" srcset="https://cdnx.jumpseller.com/bootstrap/image/429450/resize/540/675?1439530709 1x, https://cdnx.jumpseller.com/bootstrap/image/429450/resize/1080/1350?1439530709 2x" alt="DualShock Controller for PlayStation 4" class="img-fluid">
+                </div>
+              </div>             
+            </div>
+            <div class="col-lg-6">
+              <form class="form-horizontal" action="/cart/add/224303" method="post" enctype="multipart/form-data" name="buy">
+                  <!-- Producto  -->
+                  <div class="form-group price_elem row">
+                    <label class="col-sm-3 col-md-3 form-control-label nopaddingtop">Precio:</label>
+                    <div class="col-sm-8 col-md-9">
+                      <span class="product-form-price" id="product-form-price">$1200</span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="Quantity" class="col-sm-3 col-md-3 form-control-label">Cantidad:</label>
+                    <div class="col-sm-8 col-md-9">                
+                      <input type="number" class="qty form-control" id="input-qty" name="qty" maxlength="5" value="1">
+                    </div>
+                  </div>
+                  <!--  Stock -->
+                  <div class="form-group product-stock product-out-stock row hidden">
+                    <label class="col-sm-3 col-md-3 form-control-label">Stock:</label>
+                    <div class="col-sm-8 col-md-9">
+                      <span class="product-form-price">Disponible</span>
+                    </div>
+                  </div>
+                  <div class="form-group product-stock product-available row visible">
+                    <label class="col-sm-3 col-md-3 form-control-label"></label>
+                    <div class="col-sm-8 col-sm-offset-3 col-md-9 col-md-offset-3">
+                      <input type="submit" class="adc btn btn-primary" value="Agregar a Carrito">
+                 </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-md-3 form-control-label">Descripción:</label>
+                    <div class="col-sm-8 col-md-9 description">
+                      <p>The DualShock®4 Wireless Controller for PlayStation®4 defines the next generation of play, combining revolutionary new features with intuitive, precision controls. Improved analog sticks and trigger buttons allow for unparalleled accuracy with every move while innovative new technologies such as the multi-touch, clickable touch pad, integrated light bar, and internal speaker offer exciting new ways to experience and interact with your games. And with the addition of the Share button, celebrate and upload your greatest gaming moments on PlayStation®4 with the touch of a button.&nbsp;</p>
+                    </div>
+                  </div>  
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+  </section>
+</main>
+<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://bootswatch.com/_assets/js/custom.js"></script>
+
+<!--Scripts Carrito-->
+<script src="./assets/dist/js/ui.js"></script>
+</body>
+</html>
