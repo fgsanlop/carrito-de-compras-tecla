@@ -124,13 +124,11 @@ export default class UI {
             if(localStorage.getItem(id) === null) {
                 product.quantity = 1;
                 product.subtotal = product.price * product.quantity;
+                alert(`AGREGADO: ${product.title}`);
                 localStorage.setItem(id, JSON.stringify(product));
             }
             else{
-                let product = JSON.parse(localStorage.getItem(id));
-                product.quantity++;
-                product.subtotal = product.price * product.quantity;
-                localStorage.setItem(id, JSON.stringify(product));
+                alert('Producto ya agregado a carrito');
             }                        
         }
     }
@@ -158,7 +156,7 @@ export default class UI {
                 row.setAttribute('class', 'row');
 
                 let col1 = document.createElement('div');
-                col1.setAttribute('class', 'col-4 d-flex align-items-center');
+                col1.setAttribute('class', 'col-md-5 d-flex align-items-center');
 
                 let a = document.createElement('a');
                 a.href = 'product.html?id=' + product.id;                
@@ -177,6 +175,16 @@ export default class UI {
                 <h5 class="text-primary">Total: ${formatter.format(product.subtotal)} ${product.currency_id}</h5>
                 `;
 
+                let mas = document.createElement('button');
+                mas.setAttribute('class', 'btn btn-lg btn-success my-3');
+                mas.textContent = '+';
+                mas.addEventListener('click', () => { this.sumarCantidadProducto(product.id) })
+
+                let menos = document.createElement('button');
+                menos.setAttribute('class', 'btn btn-lg btn-danger my-3 mx-3');
+                menos.textContent = '-';
+                menos.addEventListener('click', () => { this.restarCantidadProducto(product.id) })
+
                 this.cart.appendChild(alert);
                 alert.appendChild(button);
                 alert.appendChild(row);
@@ -188,6 +196,8 @@ export default class UI {
                 row.appendChild(col2);
 
                 col2.innerHTML = productDetails;
+                col2.appendChild(mas);
+                col2.appendChild(menos);
 
                 montoTotal += product.subtotal;
             }
@@ -214,4 +224,28 @@ export default class UI {
             this.mostrarCarrito();
         }            
     }
+
+    sumarCantidadProducto = (id) => {
+        let product = JSON.parse(localStorage.getItem(id));
+        product.quantity++;
+        product.subtotal = product.price * product.quantity;
+        localStorage.setItem(id, JSON.stringify(product));
+        this.cart.innerHTML = '';
+        this.total.innerHTML = '';
+        this.mostrarCarrito();
+    }
+
+    restarCantidadProducto = (id) => {
+        let product = JSON.parse(localStorage.getItem(id));
+        if(product.quantity == 1)
+            alert('La cantidad mínima de producto es 1')
+        else
+        product.quantity--;       
+        product.subtotal = product.price * product.quantity;
+        localStorage.setItem(id, JSON.stringify(product));
+        this.cart.innerHTML = '';
+        this.total.innerHTML = '';
+        this.mostrarCarrito();
+    }
+
 }
