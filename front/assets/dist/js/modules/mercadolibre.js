@@ -9,12 +9,16 @@ export default class MercadoLibre {
         
         return json.slice(0, 50);
     }
+
+    obtenerCatergorias = async () => {
+        
+    }
     
     buscarProductos = async (palabra) => {         
         let res = await fetch(this.url + 'sites/MLM/search?category=MLM1144&q=' + palabra);
         let json = await res.json();
         
-        return json.results;
+        return json;
     }
 
     buscarProducto = async (id) => {

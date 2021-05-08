@@ -293,17 +293,6 @@ export default class UI {
         }
 
         this.productPictures.innerHTML = pictures;
-
-        
-
-        /*
-        this.productTitle = document.getElementById('product-title');
-        this.productPrice = document.getElementById('product-price');  
-        this.productUpdated = document.getElementById('product-update');
-        this.productAddCartBtn = document.getElementById('product-add');
-        this.productDescription = document.getElementById('product-description');
-        product-pictures
-        */
     }
 
 }
