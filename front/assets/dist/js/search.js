@@ -9,6 +9,6 @@ const q = params.get('q');
 if(!q)
     window.location = "sorry.html";
 else   
-    ui.mostrarProductos(q);
+    ui.mostrarProductos(q, 1);
 
 

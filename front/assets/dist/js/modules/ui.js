@@ -37,7 +37,7 @@ export default class UI {
             this.buscarForm.method = "GET";            
         })
     }
-
+    //Llena el div tendencias del index con palabras mas buscadas
     llenarTendencias = async () => {
         let json = await this.ml.obtenerTendenciasMX()
         json.slice(0, 50).forEach(element => {
@@ -51,16 +51,24 @@ export default class UI {
         this.tendencias.appendChild(tendencia);         
     });
 
-    await this.mostrarProductos(json[Math.floor(Math.random() * 11)].keyword)
+    await this.mostrarProductos(json[Math.floor(Math.random() * 11)].keyword, 1)
     }
 
-    mostrarProductos = async (palabra) => {
+    //Llena el div productos de una busqueda, 
+    //si tipo es 1 se llena por busqueda con palabra, si es 2 se llena por busqueda por categorias
+    mostrarProductos = async (palabra, tipo) => {
         this.productos.innerHTML = '';    
     
         this.loader.classList.toggle('d-none');
         
-        let json = await this.ml.buscarProductos(palabra);
-        this.productos.innerHTML = `<h4 class="col-12"><span class="text-muted">Mostrando resultados para: </span>${palabra}</h4>`;
+        let json; 
+
+        if(tipo === 1) {
+            json = await this.ml.buscarProductos(palabra);
+            this.productos.innerHTML = `<h4 class="col-12"><span class="text-muted">Mostrando resultados para: </span>${palabra}</h4>`;    
+        }
+        else if(tipo === 2)
+            json = await this.ml.buscarProductosPorCategoria(palabra);
         
         this.loader.classList.add('d-none');                              
     
@@ -123,6 +131,7 @@ export default class UI {
         }
     }
 
+    //Agrega un objeto Product a localStorage
     agregarProductoCarrito = async (id) => {
         const product = new Product(id);
 
@@ -144,6 +153,7 @@ export default class UI {
         }
     }
 
+    //Llena el div cart de la pagina cart con los datos recabados en localStorage, tambien calcula total
     mostrarCarrito = () => {
         if(localStorage.length == 0) {
             this.cart.innerHTML = '<p class="text-muted">No hay productos agregados aún...</p>';
@@ -227,6 +237,7 @@ export default class UI {
         }
     }
 
+    //Elimina un objeto Product especifico de localStorage
     eliminarProductoCarrito = (id) => {
         if(window.confirm('¿Seguro que deseas quitar este producto de tu carrito?')){
             localStorage.removeItem(id);
@@ -236,6 +247,7 @@ export default class UI {
         }            
     }
 
+    //Añade 1 al atributo quantity de un objeto Product especifico en localStorage
     sumarCantidadProducto = (id) => {
         let product = JSON.parse(localStorage.getItem(id));
         product.quantity++;
@@ -246,6 +258,7 @@ export default class UI {
         this.mostrarCarrito();
     }
 
+    //Quita 1 al atributo quantity de un objeto Product especifico en localStorage
     restarCantidadProducto = (id) => {
         let product = JSON.parse(localStorage.getItem(id));
         if(product.quantity == 1)
@@ -259,6 +272,7 @@ export default class UI {
         this.mostrarCarrito();
     }
 
+    //Llena los elementos de la pagina product con la informacion de un producto en especifico
     mostrarProducto = async (id) => {
         let product = new Product(id);
         await product.mapearProducto();
@@ -294,5 +308,10 @@ export default class UI {
 
         this.productPictures.innerHTML = pictures;
     }
+
+    //Llena el div categorias de la pagina categories
+
+
+    //Muestra los productos
 
 }
