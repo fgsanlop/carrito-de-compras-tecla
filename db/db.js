@@ -61,4 +61,24 @@ const obtenerCatergorias = async () => {
     }
 }
 
-module.exports = { buscarProductos, buscarProducto, obtenerCatergorias, obtenerTendencias };
+const buscarProductosPorCategoria = async (categoria) => {
+    try {
+        let res = await fetch('https://api.mercadolibre.com/sites/MLM/search?category=' + categoria);        
+        let json = await res.json();
+
+        if(json.results.length == 0)
+            throw new Error('No hay productos para tu busqueda');
+        return json.results;
+
+    } catch(error){
+        throw error;
+    }
+}
+
+module.exports = { 
+    buscarProductos, 
+    buscarProductosPorCategoria, 
+    buscarProducto, 
+    obtenerCatergorias, 
+    obtenerTendencias 
+};

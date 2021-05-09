@@ -64,7 +64,7 @@ export default class UI {
         
         this.loader.classList.add('d-none');                              
     
-        if (json.length == 0)
+        if (json.hasOwnProperty("error"))
             this.productos.innerHTML += `<p class="col-12">No hay resultados para tu busqueda :(</h4>`;
         else {
             json.forEach(element => {     

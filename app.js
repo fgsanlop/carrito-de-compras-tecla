@@ -80,3 +80,15 @@ app.get('/categorias', async (req, res) => {
         res.status(500).send(errorMsg);
     }
 })
+
+app.get('/categoria/:id', async (req, res) => {
+    try {
+        let respuesta = await db.buscarProductosPorCategoria(req.params.id);
+        res.send(respuesta);
+    } catch(error) {
+        let errorMsg = {
+            error: error.message
+        }
+        res.status(404).send(errorMsg);
+    }
+})
