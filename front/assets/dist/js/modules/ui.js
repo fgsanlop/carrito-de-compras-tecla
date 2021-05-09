@@ -27,7 +27,11 @@ export default class UI {
         this.productUpdated = document.getElementById('product-update');
         this.productAddCartBtn = document.getElementById('product-add');
         this.productDescription = document.getElementById('product-description');
-        this.productPictures = document.getElementById('product-pictures')
+        this.productPictures = document.getElementById('product-pictures');
+        this.productDiv = document.getElementById('product-div');
+        //Categorias
+        this.categoriesSel = document.getElementById('sel-categories');
+        this.categoriesBtn = document.getElementById('btn-categories');
         //Objeto MercadoLibre para las consultas
         this.ml = new MercadoLibre();        
         //Al iniciar el objeto UI en cualquier lugar, el formulario de busqueda funcionara en todas las paginas
@@ -45,7 +49,7 @@ export default class UI {
         tendencia.setAttribute('href', '#productos');
         tendencia.setAttribute('class', 'badge badge-pill bg-primary m-1 display-4 tendencia text-decoration-none text-light');         
         tendencia.addEventListener('click', () => {
-            this.mostrarProductos(element.keyword)
+            this.mostrarProductos(element.keyword, 1);
         });
         tendencia.textContent = element.keyword;
         this.tendencias.appendChild(tendencia);         
@@ -151,6 +155,8 @@ export default class UI {
                 alert('Producto ya agregado a carrito');
             }                        
         }
+        else
+            alert('Ocurrio un problema con este producto');
     }
 
     //Llena el div cart de la pagina cart con los datos recabados en localStorage, tambien calcula total
@@ -279,6 +285,9 @@ export default class UI {
         delete product.mapearProducto;
         console.log(product);
 
+        if(product.id === 0)
+            this.productDiv.innerHTML = '<h3>Ocurrio un problema con este producto :(</h3>'
+        
         this.productTitle.textContent = product.title;
         this.productPrice.textContent = formatter.format(product.price) + " " + product.currency_id;
         let date = new Date(product.updated)
@@ -310,8 +319,17 @@ export default class UI {
     }
 
     //Llena el div categorias de la pagina categories
+    llenarCategorias = async () => {
+        let json = await this.ml.obtenerCatergorias();
+        json.forEach(element => {
+            let option = document.createElement('option');
+            option.value = element.id;
+            option.textContent = element.name;
+            this.categoriesSel.appendChild(option);
+        });
 
-
-    //Muestra los productos
-
+        this.categoriesBtn.addEventListener('click', () => {
+            this.mostrarProductos(this.categoriesSel.value, 2)
+        });
+    }
 }

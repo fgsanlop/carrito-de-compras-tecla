@@ -11,7 +11,7 @@ export default class MercadoLibre {
     }
 
     obtenerCatergorias = async () => {
-        let res = await fetch(this.url + 'categorias/' + palabra);
+        let res = await fetch(this.url + 'categorias/');
         let json = await res.json();
         
         return json;
