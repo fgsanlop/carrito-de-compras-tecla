@@ -357,7 +357,7 @@ export default class UI {
             productos += `
             <li class="list-group-item d-flex justify-content-between lh-condensed">
                 <div class="col-md-8">
-                    <h6>${product.title}<span class="text-muted">X${product.quantity}</span></h6>                    
+                    <h6>${product.title}<span class="text-muted"> X ${product.quantity}</span></h6>                    
                 </div>
                 <div class="col-md-4">
                     <span class="text-muted m-3">${formatter.format(product.subtotal)} ${product.currency_id}</span>
