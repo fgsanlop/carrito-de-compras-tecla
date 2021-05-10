@@ -32,6 +32,8 @@ export default class UI {
         //Categorias
         this.categoriesSel = document.getElementById('sel-categories');
         this.categoriesBtn = document.getElementById('btn-categories');
+        //Checkout
+        this.checkout = document.getElementById('checkout');
         //Objeto MercadoLibre para las consultas
         this.ml = new MercadoLibre();        
         //Al iniciar el objeto UI en cualquier lugar, el formulario de busqueda funcionara en todas las paginas
@@ -229,9 +231,10 @@ export default class UI {
                 montoTotal += product.subtotal;
             }
 
-            let buttonPagar = document.createElement('button');
+            let buttonPagar = document.createElement('a');
             buttonPagar.setAttribute('class', 'btn btn-primary w-100');
-            buttonPagar.innerText = 'Pasar a checkout'; 
+            buttonPagar.href = 'checkout.html';
+            buttonPagar.innerText = 'Pasar a checkout';             
 
             let h1 = document.createElement('h1');
             h1.setAttribute('class', 'mb-4 mt-n2')
@@ -331,5 +334,51 @@ export default class UI {
         this.categoriesBtn.addEventListener('click', () => {
             this.mostrarProductos(this.categoriesSel.value, 2)
         });
+    }
+
+    //Descripcion de productos del checkout
+    mostrarCheckout = async () => {
+        let inicio = `
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Tu compra</span>
+            <span class="badge badge-secondary badge-pill">${localStorage.length}</span>
+        </h4>
+        <ul class="list-group sticky-top">`;
+
+        let productos = ``;
+        let total = 0;
+
+        for (let i = 0; i < localStorage.length; i++) {
+            let product = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            console.log(product);
+            
+            total += product.subtotal;
+
+            productos += `
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div class="col-md-8">
+                    <h6>${product.title}<span class="text-muted">X${product.quantity}</span></h6>                    
+                </div>
+                <div class="col-md-4">
+                    <span class="text-muted m-3">${formatter.format(product.subtotal)} ${product.currency_id}</span>
+                </div>
+            </li>            
+            `
+            
+        }
+
+
+        let fin = `
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Total</span>
+                <strong>${formatter.format(total)} MXN</strong>
+            </li>
+        </ul>                        
+        `;
+
+        let html = inicio + productos + fin;
+
+        this.checkout.innerHTML = html;
+
     }
 }
