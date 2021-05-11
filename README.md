@@ -14,7 +14,7 @@ _La API se mostrara en el puerto elegido y escrito en las variables de entorno_
 
 ## Docs 🛠️
 
-* [Swagger](https://app.swaggerhub.com/apis/GusAlmazan/API_TeclaStore/1.0.0) - El framework web usado
+* [Swagger](https://app.swaggerhub.com/apis/GusAlmazan/API_TeclaStore/1.0.0)
 
 ---
 ⌨️ con ❤️ por [fgsanlop](https://github.com/fgsanlop) 😊
