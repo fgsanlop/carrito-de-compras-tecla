@@ -47,17 +47,17 @@ export default class UI {
     llenarTendencias = async () => {
         let json = await this.ml.obtenerTendenciasMX()
         json.slice(0, 50).forEach(element => {
-        let tendencia = document.createElement('a');
-        tendencia.setAttribute('href', '#productos');
-        tendencia.setAttribute('class', 'badge badge-pill bg-primary m-1 display-4 tendencia text-decoration-none text-light');         
-        tendencia.addEventListener('click', () => {
-            this.mostrarProductos(element.keyword, 1);
+            let tendencia = document.createElement('a');
+            tendencia.setAttribute('href', '#productos');
+            tendencia.setAttribute('class', 'badge badge-pill bg-primary m-1 display-4 tendencia text-decoration-none text-light');         
+            tendencia.addEventListener('click', () => {
+                this.mostrarProductos(element.keyword, 1);
+            });
+            tendencia.textContent = element.keyword;
+            this.tendencias.appendChild(tendencia);         
         });
-        tendencia.textContent = element.keyword;
-        this.tendencias.appendChild(tendencia);         
-    });
 
-    await this.mostrarProductos(json[Math.floor(Math.random() * 11)].keyword, 1)
+        await this.mostrarProductos(json[Math.floor(Math.random() * 50)].keyword, 1)
     }
 
     //Llena el div productos de una busqueda, 
