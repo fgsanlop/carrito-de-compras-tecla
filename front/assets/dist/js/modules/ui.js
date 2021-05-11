@@ -46,7 +46,7 @@ export default class UI {
     //Llena el div tendencias del index con palabras mas buscadas
     llenarTendencias = async () => {
         let json = await this.ml.obtenerTendenciasMX()
-        json.slice(0, 50).forEach(element => {
+        json.forEach(element => {
             let tendencia = document.createElement('a');
             tendencia.setAttribute('href', '#productos');
             tendencia.setAttribute('class', 'badge badge-pill bg-primary m-1 display-4 tendencia text-decoration-none text-light');         
