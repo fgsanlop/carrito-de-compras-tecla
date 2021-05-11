@@ -7,10 +7,16 @@ _Este es el repositorio oficial de la dupla 8 para el desarrollo de Tecla Store 
 _La instalacion es sencilla, simplemente ejecuta el comando..._
 
 ```
+npm i
+```
+
+_y tambien..._
+
+```
 npm run dev
 ```
 
-_La API se mostrara en el puerto elegido y escrito en las variables de entorno_
+_La API se mostrara en el puerto elegido y escrito en las variables de entorno (PORT en archivo .ENV)_
 
 ## Docs 🛠️
 
