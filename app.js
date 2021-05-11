@@ -14,7 +14,7 @@ app.use(midd.limiter);
 
 app.use((err, req, res, next) => {
     if (err) {
-        console.log(err)
+        console.log(err);
         if (!res.headersSent) {
             res.status(500).send("Error en el servidor: " + err.message)
         }
