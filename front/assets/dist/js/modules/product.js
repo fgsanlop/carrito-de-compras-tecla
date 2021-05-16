@@ -3,28 +3,31 @@ const api = new Api();
 
 export default class Product {
     constructor(id) {
-        this.id = id;
+        this.id = id; 
+        this.categoryId = '';
         this.title = '';
-        this.price = 0;
-        this.currency_id = '';
-        this.updated = '';
         this.description = '';
-        this.quantity = 0;
-        this.pictures = new Array();
+        this.price = 0;
+        this.updated = '';
+        this.picture = '';
+        this.stock = 0;
+        this.sold = 0;
     }
 
     mapearProducto = async () => {
-        let res = await api.buscarProducto(this.id);        
+        let res = await api.buscarProducto(this.id);   
+        const { id, categoryId, title, description, price, updated, picture, stock, sold } = res;     
 
         if(!res.hasOwnProperty('error')) {
-            this.title = res.title;
-            this.price = res.price;
-            this.currency_id = res.currency_id;
-            this.updated = res.last_updated;
-            this.description = res.description;
-            res.pictures.forEach(element => {
-                this.pictures.push(element.url);
-            });
+            this.id = id; 
+            this.categoryId = categoryId;
+            this.title = title;
+            this.description = description;
+            this.price = price;
+            this.updated = updated;
+            this.picture = picture;
+            this.stock = stock;
+            this.sold = sold;
         }
         else
             this.id = 0;

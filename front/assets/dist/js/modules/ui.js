@@ -27,7 +27,9 @@ export default class UI {
         this.productUpdated = document.getElementById('product-update');
         this.productAddCartBtn = document.getElementById('product-add');
         this.productDescription = document.getElementById('product-description');
-        this.productPictures = document.getElementById('product-pictures');
+        this.productPicture = document.getElementById('product-picture');
+        this.productStock = document.getElementById('product-stock');
+        this.productSold = document.getElementById('product-sold');
         this.productDiv = document.getElementById('product-div');
         //Categorias
         this.categoriesSel = document.getElementById('sel-categories');
@@ -45,19 +47,18 @@ export default class UI {
     }
     //Llena el div tendencias del index con palabras mas buscadas
     llenarTendencias = async () => {
-        let json = await this.api.obtenerTendenciasMX()
-        json.forEach(element => {
+        let tendencias = await this.api.obtenerTendenciasMX()
+        tendencias.forEach(element => {
             let tendencia = document.createElement('a');
             tendencia.setAttribute('href', '#productos');
             tendencia.setAttribute('class', 'badge badge-pill bg-primary m-1 display-4 tendencia text-decoration-none text-light');         
             tendencia.addEventListener('click', () => {
-                this.mostrarProductos(element.keyword, 1);
+                this.mostrarProductos(element, 1);
             });
-            tendencia.textContent = element.keyword;
+            tendencia.textContent = element;
             this.tendencias.appendChild(tendencia);         
         });
-
-        await this.mostrarProductos(json[Math.floor(Math.random() * 50)].keyword, 1)
+        await this.mostrarProductos(tendencias[Math.floor(Math.random() * 50)], 1)
     }
 
     //Llena el div productos de una busqueda, 
@@ -89,7 +90,7 @@ export default class UI {
                 card.setAttribute('class', 'card shadow-sm h-100');     
 
                 let img = document.createElement('img')
-                img.setAttribute('src', element.thumbnail);
+                img.setAttribute('src', element.picture);
                 img.setAttribute('class', 'card-img-top mx-auto');    
 
                 let body = document.createElement('div');
@@ -99,9 +100,13 @@ export default class UI {
                 title.setAttribute('class', 'card-title text-muted');
                 title.textContent = element.title;
 
+                let stock = document.createElement('p');                
+                stock.setAttribute('class', 'lead text-danger');
+                stock.textContent = `Agotado`;
+
                 let text = document.createElement('h4');
                 text.setAttribute('class', 'card-text');
-                text.textContent = formatter.format(element.price)+ " " + element.currency_id;
+                text.textContent = formatter.format(element.price);
 
                 let footer = document.createElement('div');
                 footer.setAttribute('class', 'card-footer text-center');        
@@ -120,11 +125,16 @@ export default class UI {
                     this.agregarProductoCarrito(element.id);
                 })
 
-                footer.appendChild(button1);
-                footer.appendChild(button2);
+                if(element.stock !== 0) {
+                    stock.setAttribute('class', 'lead text-primary');
+                    stock.textContent = `Stock (${element.stock})`; 
+                    footer.appendChild(button1);
+                    footer.appendChild(button2);
+                }                
 
                 body.appendChild(title);
                 body.appendChild(text);
+                body.appendChild(stock);
 
                 card.appendChild(img);
                 card.appendChild(body);
@@ -145,6 +155,7 @@ export default class UI {
         delete product.mapearProducto;
 
         product['subtotal'] = 0;
+        product['quantity'] = 0;
 
         if(product.id !== 0){
             if(localStorage.getItem(id) === null) {
@@ -191,7 +202,7 @@ export default class UI {
                 a.href = 'product.html?id=' + product.id;                
 
                 let img = document.createElement('img');
-                img.src = product.pictures[0];
+                img.src = product.picture;
                 img.style = 'max-width: 100%;';
 
                 let col2 = document.createElement('div');
@@ -199,9 +210,10 @@ export default class UI {
 
                 let productDetails = `
                 <p class="lead">${product.title}</p>
-                <p>${formatter.format(product.price)} ${product.currency_id}</p>
+                <h4>${formatter.format(product.price)}</h4>
                 <p><span class="text-muted">Cantidad:</span> ${product.quantity}</p>
-                <h5 class="text-primary">Total: ${formatter.format(product.subtotal)} ${product.currency_id}</h5>
+                <p><span class="text-muted">Stock antes de compra:</span> ${product.stock}</p>
+                <h3 class="text-primary">Total: ${formatter.format(product.subtotal)}</h3>
                 `;
 
                 let mas = document.createElement('button');
@@ -259,12 +271,16 @@ export default class UI {
     //Añade 1 al atributo quantity de un objeto Product especifico en localStorage
     sumarCantidadProducto = (id) => {
         let product = JSON.parse(localStorage.getItem(id));
-        product.quantity++;
-        product.subtotal = product.price * product.quantity;
-        localStorage.setItem(id, JSON.stringify(product));
-        this.cart.innerHTML = '';
-        this.total.innerHTML = '';
-        this.mostrarCarrito();
+        if(product.quantity >= product.stock)
+            alert('Productos insuficientes para cubrir compra');
+        else{
+            product.quantity++;
+            product.subtotal = product.price * product.quantity;
+            localStorage.setItem(id, JSON.stringify(product));
+            this.cart.innerHTML = '';
+            this.total.innerHTML = '';
+            this.mostrarCarrito();
+        }        
     }
 
     //Quita 1 al atributo quantity de un objeto Product especifico en localStorage
@@ -273,12 +289,12 @@ export default class UI {
         if(product.quantity == 1)
             alert('La cantidad mínima de producto es 1')
         else
-        product.quantity--;       
-        product.subtotal = product.price * product.quantity;
-        localStorage.setItem(id, JSON.stringify(product));
-        this.cart.innerHTML = '';
-        this.total.innerHTML = '';
-        this.mostrarCarrito();
+            product.quantity--;       
+            product.subtotal = product.price * product.quantity;
+            localStorage.setItem(id, JSON.stringify(product));
+            this.cart.innerHTML = '';
+            this.total.innerHTML = '';
+            this.mostrarCarrito();
     }
 
     //Llena los elementos de la pagina product con la informacion de un producto en especifico
@@ -291,34 +307,25 @@ export default class UI {
         if(product.id === 0)
             this.productDiv.innerHTML = '<h3>Ocurrio un problema con este producto :(</h3>'
         
-        this.productTitle.textContent = product.title;
-        this.productPrice.textContent = formatter.format(product.price) + " " + product.currency_id;
-        let date = new Date(product.updated)
-        this.productUpdated.textContent = date.toLocaleDateString();
-        this.productDescription.textContent = product.description;
+            this.productTitle.textContent = product.title;
+            this.productPrice.textContent = formatter.format(product.price);        
+            this.productUpdated.textContent = product.updated;
+            this.productDescription.textContent = product.description;
+            this.productStock.textContent = product.stock;
+            this.productSold.textContent = product.sold;
 
-        this.productAddCartBtn.addEventListener('click', () => {
-            this.agregarProductoCarrito(product.id);
-        })        
-
-        let pictures = '';
-
-        for (let i = 0; i < product.pictures.length; i++) {
-            if(i == 0)            
-                pictures += `
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="${product.pictures[i]}">
-                </div>
-                `;     
-            else  
-                pictures += `
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="${product.pictures[i]}">
-                </div>
-                `;                      
-        }
-
-        this.productPictures.innerHTML = pictures;
+            if(!localStorage.getItem(id)) 
+                this.productAddCartBtn.addEventListener('click', () => {
+                    this.agregarProductoCarrito(product.id);
+                });            
+            else {
+                this.productAddCartBtn.textContent = "Producto ya en carrito";
+                this.productAddCartBtn.setAttribute('class', 'btn btn-primary')
+                this.productAddCartBtn.addEventListener('click', () => {
+                    window.location = 'cart.html';
+                });
+            }             
+        this.productPicture.innerHTML = `<img class="w-100" src="${product.picture}">`;
     }
 
     //Llena el div categorias de la pagina categories
@@ -360,7 +367,7 @@ export default class UI {
                     <h6>${product.title}<span class="text-muted"> X ${product.quantity}</span></h6>                    
                 </div>
                 <div class="col-md-4">
-                    <span class="text-muted m-3">${formatter.format(product.subtotal)} ${product.currency_id}</span>
+                    <span class="text-muted m-3">${formatter.format(product.subtotal)}</span>
                 </div>
             </li>            
             `

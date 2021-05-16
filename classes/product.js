@@ -5,7 +5,10 @@ module.exports = class Product {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.updated = updated;
+        if (updated === null) 
+            this.update = '';
+        else
+            this.updated = new Date(updated).toLocaleString();
         this.picture = picture;
         this.stock = stock;
         this.sold = sold;
