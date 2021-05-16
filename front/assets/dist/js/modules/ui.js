@@ -1,4 +1,4 @@
-import MercadoLibre from './mercadolibre.js';
+import Api from './api.js';
 import Product from './product.js';
 
 //Se usa para darle formato de dinero a los numeros
@@ -34,8 +34,8 @@ export default class UI {
         this.categoriesBtn = document.getElementById('btn-categories');
         //Checkout
         this.checkout = document.getElementById('checkout');
-        //Objeto MercadoLibre para las consultas
-        this.ml = new MercadoLibre();        
+        //Objeto Api para las consultas
+        this.api = new Api();        
         //Al iniciar el objeto UI en cualquier lugar, el formulario de busqueda funcionara en todas las paginas
         this.buscarForm.addEventListener('submit', () => {  
             this.buscarInput.name = "q";
@@ -45,7 +45,7 @@ export default class UI {
     }
     //Llena el div tendencias del index con palabras mas buscadas
     llenarTendencias = async () => {
-        let json = await this.ml.obtenerTendenciasMX()
+        let json = await this.api.obtenerTendenciasMX()
         json.forEach(element => {
             let tendencia = document.createElement('a');
             tendencia.setAttribute('href', '#productos');
@@ -70,11 +70,11 @@ export default class UI {
         let json; 
 
         if(tipo === 1) {
-            json = await this.ml.buscarProductos(palabra);
+            json = await this.api.buscarProductos(palabra);
             this.productos.innerHTML = `<h4 class="col-12"><span class="text-muted">Mostrando resultados para: </span>${palabra}</h4>`;    
         }
         else if(tipo === 2)
-            json = await this.ml.buscarProductosPorCategoria(palabra);
+            json = await this.api.buscarProductosPorCategoria(palabra);
         
         this.loader.classList.add('d-none');                              
     
@@ -323,7 +323,7 @@ export default class UI {
 
     //Llena el div categorias de la pagina categories
     llenarCategorias = async () => {
-        let json = await this.ml.obtenerCatergorias();
+        let json = await this.api.obtenerCatergorias();
         json.forEach(element => {
             let option = document.createElement('option');
             option.value = element.id;

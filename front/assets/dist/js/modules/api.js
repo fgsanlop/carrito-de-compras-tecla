@@ -1,4 +1,4 @@
-export default class MercadoLibre {
+export default class Api {
     constructor(){
         this.url = 'http://localhost:3000/';
     }    

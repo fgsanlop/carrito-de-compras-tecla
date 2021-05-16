@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const midd = require('./midd/midd');
 const db = require('./db/db')
+const routes = require('./routes/routes');
 
 require('dotenv').config();
 
@@ -11,7 +12,6 @@ require('dotenv').config();
 app.use(express.json());
 app.use(cors(midd.corsOptions));
 app.use(midd.limiter);
-
 app.use((err, req, res, next) => {
     if (err) {
         console.log(err);
@@ -22,15 +22,13 @@ app.use((err, req, res, next) => {
     next();
 })
 
+app.use('/api', routes);
+
 //Inicio de servidor
 app.listen(process.env.PORT, () => {
     console.log(`Server on: http://${process.env.HOST}:${process.env.PORT}`);
 })
 
-//Endpoints
-app.get('/', (req, res) => {
-    res.send('...');
-})
 
 app.get('/tendencias', async (req, res) => {
     try {

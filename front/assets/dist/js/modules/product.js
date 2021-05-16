@@ -1,5 +1,5 @@
-import MercadoLibre from './mercadolibre.js';
-const ml = new MercadoLibre();
+import Api from './api.js';
+const api = new Api();
 
 export default class Product {
     constructor(id) {
@@ -14,7 +14,7 @@ export default class Product {
     }
 
     mapearProducto = async () => {
-        let res = await ml.buscarProducto(this.id);        
+        let res = await api.buscarProducto(this.id);        
 
         if(!res.hasOwnProperty('error')) {
             this.title = res.title;
