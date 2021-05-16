@@ -125,16 +125,15 @@ export default class UI {
                     this.agregarProductoCarrito(element.id);
                 })
 
-                if(element.stock !== 0) {
-                    stock.setAttribute('class', 'lead text-primary');
-                    stock.textContent = `Stock (${element.stock})`; 
-                    footer.appendChild(button1);
-                    footer.appendChild(button2);
-                }                
-
                 body.appendChild(title);
                 body.appendChild(text);
-                body.appendChild(stock);
+
+                if(element.stock !== 0) { 
+                    footer.appendChild(button1);
+                    footer.appendChild(button2);
+                }
+                else
+                    body.appendChild(stock);                                    
 
                 card.appendChild(img);
                 card.appendChild(body);
