@@ -5,6 +5,7 @@ const cors = require('cors');
 const midd = require('./midd/midd');
 const db = require('./db/db')
 const routes = require('./routes/routes');
+const sequelize = require('./db/db');
 
 require('dotenv').config();
 
@@ -24,8 +25,18 @@ app.use((err, req, res, next) => {
 
 app.use('/api', routes);
 
-//Inicio de servidor
-app.listen(process.env.PORT, () => {
-    console.log(`Server on: http://${process.env.HOST}:${process.env.PORT}`);
-})
 
+const serverStart = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('DB connected!');
+        app.listen(process.env.PORT, () => {
+            console.log(`Server on: http://${process.env.HOST}:${process.env.PORT}`);
+        })
+    }catch (err){
+        console.log('DB connection ERROR: ', err);
+        
+    }
+}
+
+serverStart();
