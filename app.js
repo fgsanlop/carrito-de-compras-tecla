@@ -23,9 +23,10 @@ app.use((err, req, res, next) => {
     next();
 })
 
+//Rutas
 app.use('/api', routes);
 
-
+//Correr servidor y conexion a BD
 const serverStart = async () => {
     try {
         await sequelize.authenticate();
@@ -35,7 +36,6 @@ const serverStart = async () => {
         })
     }catch (err){
         console.log('DB connection ERROR: ', err);
-        
     }
 }
 

@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 require('dotenv').config();
 
 const sequelize = new Sequelize('tecla_store', null, null, {
