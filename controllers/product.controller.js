@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const Product = require('../classes/product');
+const Product = require('../models/product.model');
 
 const obtenerTendencias = async () => {
     try {
@@ -12,7 +12,7 @@ const obtenerTendencias = async () => {
             json.forEach(element => {
                 trends.push(element.keyword);
             });
-            return trends;
+            return trends; 
         }
         
     } catch(error){

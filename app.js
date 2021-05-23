@@ -1,14 +1,16 @@
-//Importaciones
+//Importaciones modulos y midds
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const midd = require('./midd/midd');
-const sequelize = require('./db/conn')
-const routes = require('./routes/routes');
+const sequelize = require('./db/conn');
 require('dotenv').config();
-
+//Models
 const Role = require('./db/roles');
 const User = require('./db/users');
+//Views
+const productViews = require('./views/product.views');
+const categoryViews = require('./views/category.views');
 
 //Middlewares globales
 app.use(express.json());
@@ -22,10 +24,14 @@ app.use((err, req, res, next) => {
         }
     }
     next();
-})
+});
+app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/templates');
  
 //Rutas
-app.use('/api', routes);
+app.use('/api', productViews);
+app.use('/api', categoryViews);
 
 //Correr servidor y conexion a BD
 const serverStart = async () => {

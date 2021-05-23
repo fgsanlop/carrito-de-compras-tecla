@@ -1,6 +1,6 @@
 var express = require('express');
-var productService = require('../services/product.service');
-var categoriesService = require('../services/category.service');
+var productService = require('../controllers/product.controller');
+var categoriesService = require('../controllers/category.controller');
 
 var router = express.Router();
 

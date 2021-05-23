@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const Category = require('../classes/category');
+const Category = require('../models/category.model');
 
 const obtenerCatergorias = async () => {
     try {
