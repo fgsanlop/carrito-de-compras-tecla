@@ -2,15 +2,17 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const midd = require('./midd/midd');
 const sequelize = require('./db/conn');
+const midd = require('./midd/midd');
+const middjwt = require('./midd/midd.jwt');
 require('dotenv').config();
-//Models
+//Sequelize models
 const Role = require('./db/roles');
 const User = require('./db/users');
 //Views
 const productViews = require('./views/product.views');
 const categoryViews = require('./views/category.views');
+const userViews = require('./views/user.views');
 
 //Middlewares globales
 app.use(express.json());
@@ -32,6 +34,7 @@ app.set('views', __dirname + '/templates');
 //Rutas
 app.use('/api', productViews);
 app.use('/api', categoryViews);
+app.use('/api', userViews);
 
 //Correr servidor y conexion a BD
 const serverStart = async () => {
@@ -89,8 +92,23 @@ const serverStart = async () => {
             console.log(`Server on: http://${process.env.HOST}:${process.env.PORT}`);
         })
     }catch (err){
-        console.log('DB connection ERROR: ', err);
+        console.log('---DB connection ERROR: ', err);
     }
 }
 
 serverStart();
+
+//EJS - Login
+app.get('/', (req, res) => {
+    res.render('login');
+});
+
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+app.get('/index', middjwt.checarToken, (req, res) => {
+    res.render('index');
+})
+ 
+ 

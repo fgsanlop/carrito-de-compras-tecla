@@ -4,10 +4,6 @@ var categoriesService = require('../controllers/category.controller');
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Hola :D');
-})
-
 router.get('/trends', async (req, res) => {
     try {
         let product = await productService.obtenerTendencias();

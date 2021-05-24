@@ -17,7 +17,14 @@ const User = sequelize.define('users', {
     },
     email: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: false,        
+        validate: {
+            isEmail:true
+        },
+        unique: {
+            args: true,
+            msg: 'Correo electrónico ya registrado'
+        }
     },
     pass: {
         type: DataTypes.STRING(20),
@@ -30,10 +37,6 @@ const User = sequelize.define('users', {
     last_name: {
         type: DataTypes.STRING(20),
         allowNull: false,
-    },
-    last_login: {
-        type: DataTypes.DATE,
-        allowNull: true,
     },
 });
 
