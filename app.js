@@ -5,6 +5,7 @@ const cors = require('cors');
 const sequelize = require('./db/conn');
 const midd = require('./midd/midd');
 const middjwt = require('./midd/midd.jwt');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 //Sequelize models
 const Role = require('./db/roles');
@@ -30,7 +31,7 @@ app.use((err, req, res, next) => {
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/templates');
- 
+app.use(cookieParser());
 //Rutas
 app.use('/api', productViews);
 app.use('/api', categoryViews);
@@ -99,15 +100,15 @@ const serverStart = async () => {
 serverStart();
 
 //EJS - Login
-app.get('/', (req, res) => {
-    res.render('login');
+app.get('/', /*middjwt.loggeado,*/ (req, res) => {
+    res.render('login', {error: ''});
 });
 
 app.get('/signup', (req, res) => {
-    res.render('signup');
+    res.render('signup', {error: ''});
 });
 
-app.get('/index', middjwt.checarToken, (req, res) => {
+app.get('/index', middjwt.headerView, middjwt.checarToken, (req, res) => {
     res.render('index');
 })
  

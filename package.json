@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/fgsanlop/carrito-de-compras-tecla#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.6.0",
     "ejs": "^3.1.6",

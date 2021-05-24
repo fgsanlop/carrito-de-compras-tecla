@@ -1,7 +1,18 @@
 const jwt = require('jsonwebtoken');
 
+const headerView = (req, res, next) => {
+    let token = req.cookies.token;
+    req.headers.authorization = `Bearer ${token}`
+    next();
+}
 
-module.exports.checarToken = (req, res, next) => {    
+const loggeado = (req, res, next) => {
+    if(req.cookies.token != undefined)
+        res.redirect('/index')         
+    next();
+}
+
+const checarToken = (req, res, next) => {    
     if (req.headers.authorization != undefined) {
         try {
             const token = req.headers.authorization.split(' ')[1];
@@ -16,5 +27,11 @@ module.exports.checarToken = (req, res, next) => {
         }              
     }
     else
-        res.status(400).json('No tienes autorización para ver esto :/');    
+        res.status(400).json({error:'No tienes autorización para ver esto :/'});    
+}
+
+module.exports = {
+    headerView,
+    checarToken,
+    loggeado
 }

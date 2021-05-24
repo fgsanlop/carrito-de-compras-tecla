@@ -11,7 +11,6 @@ router.post('/user/register', async (req, res) => {
             throw new Error('Datos vacios')
         let resultado = await UserController.registrarUsuario(body);
         res.status(200).json(resultado);
-        res.render('login');
     } catch (error) {
         res.status(400).send({error: error.message});
     }
@@ -19,15 +18,19 @@ router.post('/user/register', async (req, res) => {
 
 router.post('/user/login', async (req, res) => {
     let body = req.body;    
+    let remember = req.body.remember;
     try {
         if (Object.keys(body).length == 0)
             throw new Error('Datos vacios');
-        let resultado = await UserController.iniciarSesion(body);
-        localStorage.setItem('token', resultado);
-        res.status(200).json(resultado);        
-        res.render('index');
+
+        let resultado = await UserController.iniciarSesion(body); 
+
+        if (remember)    
+            res.status(200).cookie('token', resultado, {maxAge: 31536000000}).json(resultado);  //Cookie expira en un año                              
+        else
+            res.status(200).cookie('token', resultado).json(resultado);
     } catch (error) {
-        res.status(400).send({error: error.message});
+        res.status(400).send({error: error.message});    
     }
 });
 
@@ -65,5 +68,11 @@ router.delete('/user/delete/:id', middjwt.checarToken, async (req,res) => {
         res.status(400).send({error: error.message});
     }
 });
+
+router.get('/user/logout', middjwt.checarToken, async (req,res) => {
+    res.clearCookie('token');
+    res.location('/')
+});
+
 
 module.exports = router;
