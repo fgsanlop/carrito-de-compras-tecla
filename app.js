@@ -10,6 +10,8 @@ require('dotenv').config();
 //Sequelize models
 const Role = require('./db/roles');
 const User = require('./db/users');
+const Categorie = require('./db/categories');
+const Product = require('./db/products');
 //Views
 const productViews = require('./views/product.views');
 const categoryViews = require('./views/category.views');
@@ -42,7 +44,9 @@ const serverStart = async () => {
     try {                
         await sequelize.authenticate();        
         await Role.sync({alter:true});
-        await User.sync({alter:true}); 
+        await User.sync({alter:true});
+        await Categorie.sync({alter:true});
+        await Product.sync({alter:true});        
 
         //Parametros iniciales para roles, aqui tambien entrarian categorias (datos precargados)
         await Role.findOrCreate({
@@ -58,6 +62,42 @@ const serverStart = async () => {
             }
         });        
 
+        await Categorie.findOrCreate({
+            where: {
+                name: 'Accesorios para consolas', //MLM438578 
+            }
+        });
+        await Categorie.findOrCreate({
+            where: {
+                name: 'Accesorios para PC Gaming', //MLM123324 
+            }
+        });
+        await Categorie.findOrCreate({
+            where: {
+                name: 'Consolas', //MLM167860 
+            }
+        });
+        await Categorie.findOrCreate({
+            where: {
+                name: 'Maquinitas', //MLM8232 
+            }
+        });
+        await Categorie.findOrCreate({
+            where: {
+                name: 'Repuestos para consolas', //MLM438579
+            }
+        });
+        await Categorie.findOrCreate({
+            where: {
+                name: 'Videojuegos', //MLM151595 
+            }
+        });
+        await Categorie.findOrCreate({
+            where: {
+                name: 'Otros', //MLM1152
+            }
+        });
+        
         //Algunos usuarios de prueba
         await User.findOrCreate({
             where: {
@@ -110,6 +150,10 @@ app.get('/signup', (req, res) => {
 
 app.get('/index', middjwt.headerView, middjwt.checarToken, (req, res) => {
     res.render('index');
+})
+ 
+app.get('/super-carga-chetada', (req, res) => {
+    res.render('-carga-productos-ml-');
 })
  
  

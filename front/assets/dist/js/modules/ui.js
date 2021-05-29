@@ -160,15 +160,25 @@ export default class UI {
             if(localStorage.getItem(id) === null) {
                 product.quantity = 1;
                 product.subtotal = product.price * product.quantity;
-                alert(`AGREGADO: ${product.title}`);
+                Swal.fire(
+                    '¡Agregado!',
+                    product.title,                    
+                )
                 localStorage.setItem(id, JSON.stringify(product));
             }
             else{
-                alert('Producto ya agregado a carrito');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Producto ya en carrito'
+                })
             }                        
         }
         else
-            alert('Ocurrio un problema con este producto');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Hubo un error con este producto :('
+        })
     }
 
     //Llena el div cart de la pagina cart con los datos recabados en localStorage, tambien calcula total
@@ -259,19 +269,37 @@ export default class UI {
 
     //Elimina un objeto Product especifico de localStorage
     eliminarProductoCarrito = (id) => {
-        if(window.confirm('¿Seguro que deseas quitar este producto de tu carrito?')){
-            localStorage.removeItem(id);
-            this.total.innerHTML = '';
-            this.cart.innerHTML = ''
-            this.mostrarCarrito();
-        }            
+        Swal.fire({
+            title: '¿Seguro que deseas quitar este producto de tu carrito?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem(id);
+                this.total.innerHTML = '';
+                this.cart.innerHTML = ''
+                this.mostrarCarrito();
+                Swal.fire(
+                'Eliminado',
+                'El producto ya no esta en el carrito',
+                'success'
+                )
+            }
+        })       
     }
 
     //Añade 1 al atributo quantity de un objeto Product especifico en localStorage
     sumarCantidadProducto = (id) => {
         let product = JSON.parse(localStorage.getItem(id));
         if(product.quantity >= product.stock)
-            alert('Productos insuficientes para cubrir compra');
+            Swal.fire({
+                title: 'Productos en stock insuficientes para cubrir compra',
+                icon: 'warning',
+            })
         else{
             product.quantity++;
             product.subtotal = product.price * product.quantity;
@@ -286,7 +314,10 @@ export default class UI {
     restarCantidadProducto = (id) => {
         let product = JSON.parse(localStorage.getItem(id));
         if(product.quantity == 1)
-            alert('La cantidad mínima de producto es 1')
+            Swal.fire({
+                title: 'La cantidad mínima es 1',
+                icon: 'warning',
+            })
         else
             product.quantity--;       
             product.subtotal = product.price * product.quantity;

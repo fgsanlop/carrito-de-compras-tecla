@@ -1,67 +1,88 @@
-var express = require('express');
-var productService = require('../controllers/product.controller');
-var categoriesService = require('../controllers/category.controller');
-
-var router = express.Router();
+const express = require('express');
+const productController = require('../controllers/product.controller');
+const router = express.Router();
 
 router.get('/trends', async (req, res) => {
     try {
-        let product = await productService.obtenerTendencias();
-        res.send(product);
+        let tendencias = await productController.listarTendencias();
+        res.send(tendencias);
     } catch(error) {
-        let errorMsg = {
-            error: error.message
-        }
-        res.status(404).send(errorMsg);
+        res.status(500).send({error: error.message});
+    }
+})
+
+router.post('/product/register', /*MIDDLEWARE ADMIN*/async (req, res) => {
+    let body = req.body;
+    try {
+        if (Object.keys(body).length == 0)
+            throw new Error('Datos vacios')
+        let resultado = await productController.registrarProducto(body);
+        res.status(200).json(resultado);
+    } catch (error) {
+        res.status(400).send({error: error.message});
+    }
+})
+
+router.get('/product/all', async (req, res) => {
+    try {
+        let productos = await productController.listarProductos();
+        res.send(productos);
+    } catch(error) {
+        res.status(500).send({error: error.message});
+    }
+})
+
+router.get('/product/search/:keyword', async (req, res) => {
+    let palabra = req.params.keyword;
+    try {
+        let productos = await productController.listarProductosPorBusqueda(palabra);
+        res.send(productos);
+    } catch(error) {
+        res.status(500).send({error: error.message});
+    }
+})
+
+router.get('/product/category/:id', async (req, res) => {
+    let categoria = req.params.id;
+    try {
+        let productos = await productController.listarProductosPorCategoria(categoria);
+        res.send(productos);
+    } catch(error) {
+        res.status(500).send({error: error.message});
     }
 })
 
 router.get('/product/:id', async (req, res) => {
+    let id = req.params.id;
     try {
-        let product = await productService.buscarProducto(req.params.id);
-        res.send(product);
+        let producto = await productController.listarProducto(id);
+        res.send(producto);
     } catch(error) {
-        let errorMsg = {
-            error: error.message
-        }
-        res.status(404).send(errorMsg);
+        res.status(500).send({error: error.message});
     }
 })
 
-router.get('/search/:keyword', async (req, res) => {
+router.put('/product/update/:id', /*MIDDLEWARE ADMIN*/async (req,res) => {
+    let id = req.params.id;
+    let body = req.body;
     try {
-        let products = await productService.buscarProductos(req.params.keyword);
-        res.send(products);
-    } catch(error) {
-        let errorMsg = {
-            error: error.message
-        }
-        res.status(404).send(errorMsg);
+        if (Object.keys(body).length == 0)
+            throw new Error('Datos vacios');
+        let resultado = await productController.modificarProducto(id, body);
+        res.status(200).json(resultado);            
+    } catch (error) {
+        res.status(400).send({error: error.message});
     }
-})
+});
 
-router.get('/products/:category', async (req, res) => {
+router.delete('/product/delete/:id', /*MIDDLEWARE ADMIN*/async (req,res) => {
+    let id = req.params.id;
     try {
-        let products = await productService.buscarProductosPorCategoria(req.params.category);
-        res.send(products);
-    } catch(error) {
-        let errorMsg = {
-            error: error.message
-        }
-        res.status(404).send(errorMsg);
+        let resultado = await productController.eliminarProducto(id);
+        res.status(200).json(resultado);            
+    } catch (error) {
+        res.status(400).send({error: error.message});
     }
-})
-
-router.get('/categories', async (req, res) => {
-    try {
-        let categories = await categoriesService.obtenerCatergorias();
-        res.send(categories);
-    } catch(error) {
-        let errorMsg = {
-            error: error.message
-        }
-        res.status(404).send(errorMsg);
-    }
-})
+});
 
 module.exports = router;

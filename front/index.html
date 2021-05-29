@@ -59,7 +59,7 @@
   <div class="pb-5 bg-light">
     <div class="container">
       <div class="loader d-none mx-auto" id="loader"></div>
-      <div class="row" id="productos">       
+      <div class="row testd" id="productos">        
       </div>
     </div>
   </div>
@@ -73,14 +73,17 @@
     </p>    
   </div>
 </footer>
-
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  ScrollReveal().reveal('.navbar', {delay: 500});
+  ScrollReveal().reveal('.jumbotron', {delay: 1000});  
+</script>
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://bootswatch.com/_assets/js/custom.js"></script>
-
 <!--Scripts Carrito-->
 <script type="module" src="./assets/dist/js/index.js"></script>
-
       
 </body>
 </html>

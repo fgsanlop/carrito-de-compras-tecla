@@ -34,7 +34,7 @@ const iniciarSesion = async (data) => {
             return token;
         }
         else {
-            throw new Error('Credenciales incorrecta');
+            throw new Error('Credenciales incorrectas');
         }
     } catch (error) {
         throw error;

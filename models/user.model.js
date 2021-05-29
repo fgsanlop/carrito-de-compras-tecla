@@ -10,8 +10,8 @@ module.exports = class UserModel {
     }
     //C
     registrarUsuario = async () => {
-        let existe = await this.checarExistenciaUsuario();
-        if(existe)
+        let existeUsuario = await this.checarExistenciaUsuario();
+        if(existeUsuario)
             throw new Error('Usuario ya ha sido registrado');
         else {
             try {
@@ -30,26 +30,26 @@ module.exports = class UserModel {
     }
     //R
     checarExistenciaUsuario = async () => {
-        let existe = await User.findOne({
+        let existeUsuario = await User.findOne({
             where: {email: this.email} 
         });
-        if (existe === null)
+        if (existeUsuario === null)
             return false
         else 
             return true        
     }
     comprobarCredenciales = async () => {
-        let existe = await User.findOne({
+        let existeUsuario = await User.findOne({
             where: {
                 email: this.email, 
                 pass: this.pass
             } 
         });
 
-        if (existe === null)
+        if (existeUsuario === null)
             return false
         else 
-            return existe        
+            return existeUsuario    
     }
     //U
     modificarUsuario = async (id) => {        
