@@ -81,7 +81,7 @@ module.exports = class ProductModel {
                 id: id
             }
         });
-        if (productoAModificar === null)
+        if (productoAModificar == null)
             throw new Error('Este producto no existe')        
         try {
             productoAModificar.category_id = this.category_id;

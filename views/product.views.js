@@ -2,9 +2,17 @@ const express = require('express');
 const productController = require('../controllers/product.controller');
 const router = express.Router();
 
-router.get('/trends', async (req, res) => {
+router.get('/product/trends', async (req, res) => {
     try {
-        let tendencias = await productController.listarTendencias();
+        let productos = await productController.listarProductos();
+        const posiciones = new Array();
+        for (let i = 0; i < 10; i++) {
+            posiciones.push(Math.floor(Math.random() * productos.length))            
+        }
+        let tendencias = new Array();
+        posiciones.forEach(element => {
+            tendencias.push(productos[element])
+        });        
         res.send(tendencias);
     } catch(error) {
         res.status(500).send({error: error.message});
