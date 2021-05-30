@@ -8,7 +8,8 @@
 </head>
 <body>
     <div style="width: 100%; margin-top: 20%">
-        <input type="button" id="magia" value="Cargar" style="display: block; margin: 0 auto">
+        <input type="button" id="magia" value="Cargar de categorias" style="display: block; margin: 0 auto">
+        <input type="button" id="tendencias" disabled value="Cargar de tendencias" style="display: block; margin: 0 auto">
     </div>
     <script>
         class Producto {
@@ -29,15 +30,98 @@
             'MLM8232',   //4
             'MLM438579', //5
             'MLM151595', //6
-            'MLM1152'    //7
+            'MLM1152'    //7            
         ];
+        
+        
+        let botonTen = document.getElementById('tendencias');
+        botonTen.addEventListener('click', async () => {
 
-        let boton = document.getElementById('magia');
-        boton.addEventListener('click', async () => {
+            let tendencias = [
+                'fifa',
+                'sillas',
+                'monitores',
+                'pc armada',
+                'ps5',
+                'xbox series',
+                'spiderman',
+                'nintendo',
+                'logitech',
+                'c3 tech',
+                'notebooks',
+                'tarjetas',
+                'pes 2010',
+                'pes 2011',
+                'pes 2012',
+                'pes 2013'                
+            ];
+
+            for (let i = 0; i < tendencias.length; i++) {
+                
+                let req = await fetch(`https://api.mercadolibre.com/sites/MLM/search?q=${tendencias[i]}`);
+                let productos = await req.json();
+                let resultados = productos.results;
+                resultados = resultados.slice(0,20);
+
+                resultados.forEach(async (element) => {                    
+                    let req = await fetch(`https://api.mercadolibre.com/items/${element.id}`);
+                    let producto = await req.json();
+                    let reqdes = await fetch(`https://api.mercadolibre.com/items/${element.id}/description`);
+                    let reqdes_json = await reqdes.json();
+                    let descripcion = reqdes_json.plain_text;//.slice(0,240).concat('...');
+                            
+                    console.log(element.category_id, producto.category_id);
+                    
+                    
+                    /*if(descripcion != undefined)
+                        descripcion = descripcion.slice(0,240).concat('...');
+                    else
+                        descripcion = '...';
+
+                    let productoObjeto = new Producto(
+                        0,
+                        producto.title.slice(0,100),
+                        descripcion,
+                        producto.price,
+                        producto.pictures[0].url,
+                        Math.floor(Math.random() * 200)
+                    );
+
+                    console.log(productoObjeto)
+
+                    /*setTimeout(() => {
+                        let myHeaders = new Headers();
+                        myHeaders.append("Content-Type", "application/json");
+                        
+                        let raw = JSON.stringify(productoObjeto);
+
+                        let requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: raw,
+                        redirect: 'follow'
+                        };
+
+                        fetch("http://localhost:3000/api/product/register", requestOptions)
+                        .then(response => response.text())
+                        .then(result => console.log(result))
+                        .catch(error => console.log('error', error)); 
+                    }, 5000);   */                 
+                });                
+            } 
+
+
+            
+            
+        })
+        
+
+        let botonCat = document.getElementById('magia');
+        botonCat.addEventListener('click', async () => {
 
             for (let i = 0; i < categorias.length; i++) {
-                
-                let req = await fetch(`https://api.mercadolibre.com/sites/MLM/search?category=${categorias[i]}`);
+                //offset para mas productos, limit es maximo 50
+                let req = await fetch(`https://api.mercadolibre.com/sites/MLM/search?category=${categorias[i]}&offset=51`);
                 let productos = await req.json();
                 let resultados = productos.results;
                 console.log(resultados.length);

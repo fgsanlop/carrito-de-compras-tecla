@@ -4,7 +4,6 @@ const app = express();
 const cors = require('cors');
 const sequelize = require('./db/conn');
 const midd = require('./midd/midd');
-const middjwt = require('./midd/midd.jwt');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 //Sequelize models
@@ -16,7 +15,7 @@ const Product = require('./db/products');
 const productViews = require('./views/product.views');
 const categoryViews = require('./views/category.views');
 const userViews = require('./views/user.views');
-
+const generalViews = require('./views/general.views');
 //Middlewares globales
 app.use(express.json());
 app.use(cors(midd.corsOptions));
@@ -38,6 +37,8 @@ app.use(cookieParser());
 app.use('/api', productViews);
 app.use('/api', categoryViews);
 app.use('/api', userViews);
+
+app.use(generalViews);
 
 //Correr servidor y conexion a BD
 const serverStart = async () => {
@@ -139,21 +140,4 @@ const serverStart = async () => {
 
 serverStart();
 
-//EJS - Login
-app.get('/', /*middjwt.loggeado,*/ (req, res) => {
-    res.render('login', {error: ''});
-});
-
-app.get('/signup', (req, res) => {
-    res.render('signup', {error: ''});
-});
-
-app.get('/index', middjwt.headerView, middjwt.checarToken, (req, res) => {
-    res.render('index');
-})
- 
-app.get('/super-carga-chetada', (req, res) => {
-    res.render('-carga-productos-ml-');
-})
- 
  

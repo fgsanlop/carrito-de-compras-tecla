@@ -1,17 +1,14 @@
-var express = require('express');
-var categoriesService = require('../controllers/category.controller');
-
-var router = express.Router();
+let express = require('express');
+let categoriesController = require('../controllers/category.controller');
+let router = express.Router();
 
 router.get('/categories', async (req, res) => {
     try {
-        let categories = await categoriesService.obtenerCatergorias();
-        res.send(categories);
+        console.log(categoriesController);
+        let categorias = await categoriesController.listarCategorias();
+        res.send(categorias);
     } catch(error) {
-        let errorMsg = {
-            error: error.message
-        }
-        res.status(404).send(errorMsg);
+        res.status(404).send({error: error.message});
     }
 })
 

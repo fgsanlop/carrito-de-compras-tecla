@@ -19,6 +19,15 @@ router.get('/product/trends', async (req, res) => {
     }
 })
 
+router.get('/product/trends/keywords', async (req, res) => {
+    try {
+        let palabrasTendencias = await productController.listarTendencias();
+        res.send(palabrasTendencias);
+    } catch(error) {
+        res.status(500).send({error: error.message});
+    }
+})
+
 router.post('/product/register', /*MIDDLEWARE ADMIN*/async (req, res) => {
     let body = req.body;
     try {

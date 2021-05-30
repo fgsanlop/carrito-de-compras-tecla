@@ -4,10 +4,10 @@ export default class Api {
     }    
 
     obtenerTendenciasMX = async () => {
-        let res = await fetch(this.url + '/trends');
+        let res = await fetch(this.url + '/product/trends');
         let json = await res.json();
         
-        return json.slice(0, 50);
+        return json;
     }
 
     obtenerCatergorias = async () => {
@@ -18,14 +18,14 @@ export default class Api {
     }
     
     buscarProductos = async (palabra) => {         
-        let res = await fetch(this.url + '/search/' + palabra);
+        let res = await fetch(this.url + '/product/search/' + palabra);
         let json = await res.json();
         
         return json;
     }
 
     buscarProductosPorCategoria = async (id) => {         
-        let res = await fetch(this.url + '/products/' + id);
+        let res = await fetch(this.url + '/product/category/' + id);
         let json = await res.json();
         
         return json;

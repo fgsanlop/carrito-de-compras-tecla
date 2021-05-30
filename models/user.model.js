@@ -1,5 +1,4 @@
 const User = require('../db/users');
-const sequelize = require('../db/conn');
 
 module.exports = class UserModel {
     constructor(email, pass, name, last_name) {        

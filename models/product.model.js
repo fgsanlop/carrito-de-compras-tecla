@@ -1,7 +1,6 @@
 const Product = require('../db/products');
 const sequelize = require('../db/conn');
 const { QueryTypes } = require('sequelize');
-const { listarProducto } = require('../controllers/product.controller');
 
 module.exports = class ProductModel {
     constructor(category_id, title, description, price, picture, stock) {                
@@ -13,26 +12,35 @@ module.exports = class ProductModel {
         this.stock = stock;        
     }
     //C
-    registrarProducto = async () => {        
-        try {
-            await Product.create({
-                category_id: this.category_id,
-                title: this.title,
-                description: this.description,
-                price: this.price,
-                picture: this.picture,
-                stock: this.stock,
-                sold: 0
-            });
-            return 'Producto creado'
-        } catch (err){
-            throw new Error('No se pudo registrar el producto')
-        }        
+    registrarProducto = async () => {    
+        let existeNombre = await Product.findOne({
+            where: {
+                title: this.title
+            }
+        })    
+        if(existeNombre == null) {
+            try {
+                await Product.create({
+                    category_id: this.category_id,
+                    title: this.title,
+                    description: this.description,
+                    price: this.price,
+                    picture: this.picture,
+                    stock: this.stock,
+                    sold: 0
+                });
+                return 'Producto creado'
+            } catch (err){
+                throw new Error('No se pudo registrar el producto')
+            }  
+        }
+        else
+            throw new Error('Ya existe un producto con el mismo nombre')              
     }
     //R
     static listarProductos = async () => {
         let productos = await Product.findAll();
-        if (productos === null)
+        if (productos === null || productos.length == 0)
             throw Error('No hay productos en inventario')
         else 
             return productos
@@ -45,7 +53,7 @@ module.exports = class ProductModel {
               type: QueryTypes.SELECT
             }
         );
-        if (productosPorBusqueda === null)
+        if (productosPorBusqueda == null || productosPorBusqueda.length == 0)
             throw Error('No hay resultados para tu busqueda')
         else 
             return productosPorBusqueda
@@ -57,7 +65,7 @@ module.exports = class ProductModel {
                 category_id: categoria
             }
         });
-        if (productosPorCategoria === null)
+        if (productosPorCategoria === null || productosPorCategoria.length == 0)
             throw Error('No hay productos en esta categoría')
         else 
             return productosPorCategoria
@@ -75,7 +83,7 @@ module.exports = class ProductModel {
             return producto
     }
     //U
-    modificarProducto = async (id) => {
+    modificarProducto = async (id) => {         
         let productoAModificar = await Product.findOne({ 
             where: {
                 id: id
@@ -84,15 +92,24 @@ module.exports = class ProductModel {
         if (productoAModificar == null)
             throw new Error('Este producto no existe')        
         try {
-            productoAModificar.category_id = this.category_id;
+            if(productoAModificar.title != this.title) {
+                let existeNombre = await Product.findOne({
+                    where: {
+                        title: this.title
+                    }
+                });
+                if(existeNombre != null)
+                    throw new Error('Ya existe un producto con el mismo nombre');                 
+            }
             productoAModificar.title = this.title;
+            productoAModificar.category_id = this.category_id;
             productoAModificar.description = this.description;
             productoAModificar.price = this.price;
             productoAModificar.stock = this.stock;
             await productoAModificar.save();
-            return 'Producto modificado';                        
+            return 'Producto modificado';                                                
         } catch (error) {
-            throw Error('Error al modificar producto');
+            throw Error(`Error al modificar: ${error.message}`);
         }
     }
     //D

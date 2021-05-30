@@ -9,9 +9,7 @@ let formatter = new Intl.NumberFormat('en-US', {
 
 export default class UI {
     //Obtiene los elementos de los distintos HTML donde se importe
-    constructor(){
-        //Index
-        this.tendencias = document.getElementById('tendencias');
+    constructor(){        
         //Index y busqueda
         this.productos = document.getElementById('productos');
         this.loader = document.getElementById('loader');
@@ -47,22 +45,11 @@ export default class UI {
     }
     //Llena el div tendencias del index con palabras mas buscadas
     llenarTendencias = async () => {
-        let tendencias = await this.api.obtenerTendenciasMX()
-        tendencias.forEach(element => {
-            let tendencia = document.createElement('a');
-            tendencia.setAttribute('href', '#productos');
-            tendencia.setAttribute('class', 'badge badge-pill bg-primary m-1 display-4 tendencia text-decoration-none text-light');         
-            tendencia.addEventListener('click', () => {
-                this.mostrarProductos(element, 1);
-            });
-            tendencia.textContent = element;
-            this.tendencias.appendChild(tendencia);         
-        });
-        await this.mostrarProductos(tendencias[Math.floor(Math.random() * 50)], 1)
+        await this.mostrarProductos('', 3)
     }
 
     //Llena el div productos de una busqueda, 
-    //si tipo es 1 se llena por busqueda con palabra, si es 2 se llena por busqueda por categorias
+    //si tipo es 1 se llena por busqueda con palabra, si es 2 se llena por busqueda por categorias, 3 para tendencias
     mostrarProductos = async (palabra, tipo) => {
         this.productos.innerHTML = '';    
     
@@ -76,11 +63,13 @@ export default class UI {
         }
         else if(tipo === 2)
             json = await this.api.buscarProductosPorCategoria(palabra);
+        else if(tipo === 3)
+            json = await this.api.obtenerTendenciasMX();
         
         this.loader.classList.add('d-none');                              
     
         if (json.hasOwnProperty("error"))
-            this.productos.innerHTML += `<p class="col-12">No hay resultados para tu busqueda :(</h4>`;
+            this.productos.innerHTML += `<p class="col-12">${json.error}</h4>`;
         else {
             json.forEach(element => {     
                 let col = document.createElement('div')
@@ -102,7 +91,7 @@ export default class UI {
 
                 let stock = document.createElement('p');                
                 stock.setAttribute('class', 'lead text-danger');
-                stock.textContent = `Agotado`;
+                stock.textContent = `Sin existencias`;
 
                 let text = document.createElement('h4');
                 text.setAttribute('class', 'card-text');
@@ -153,8 +142,8 @@ export default class UI {
         await product.mapearProducto();
         delete product.mapearProducto;
 
-        product['subtotal'] = 0;
         product['quantity'] = 0;
+        product['subtotal'] = 0;    
 
         if(product.id !== 0){
             if(localStorage.getItem(id) === null) {
@@ -174,11 +163,11 @@ export default class UI {
             }                        
         }
         else
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Hubo un error con este producto :('
-        })
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hubo un error con este producto :('
+            })
     }
 
     //Llena el div cart de la pagina cart con los datos recabados en localStorage, tambien calcula total
@@ -198,7 +187,7 @@ export default class UI {
 
                 let button = document.createElement('button');
                 button.setAttribute('class', 'close');
-                button.innerHTML = '&times;';
+                button.innerHTML = '&times;';            
                 button.addEventListener('click', () => { this.eliminarProductoCarrito(product.id) });
 
                 let row = document.createElement('div');
@@ -334,12 +323,12 @@ export default class UI {
         delete product.mapearProducto;
         console.log(product);
 
-        if(product.id === 0)
+        if(product.id == 0)
             this.productDiv.innerHTML = '<h3>Ocurrio un problema con este producto :(</h3>'
         
             this.productTitle.textContent = product.title;
             this.productPrice.textContent = formatter.format(product.price);        
-            this.productUpdated.textContent = product.updated;
+            this.productUpdated.textContent = product.updatedAt;
             this.productDescription.textContent = product.description;
             this.productStock.textContent = product.stock;
             this.productSold.textContent = product.sold;
