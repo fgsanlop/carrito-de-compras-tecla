@@ -49,7 +49,7 @@
       <div class="mx-auto">
         <div class="jumbotron">
           <h1 class="display-2">¡Bienvenido a Tecla Store!</h1>
-          <p class="lead">Productos sobre videojuegos más buscados recientemente</p>          
+          <p class="lead">Productos y accesorios sobre videojuegos más buscados</p>          
         </div>
       </div>
     </div>
@@ -57,6 +57,13 @@
   
   <div class="pb-5 bg-light">
     <div class="container">
+      <div class="card mb-5">
+        <div class="card-body" id="recent-search">
+          <h4 class="card-title text-muted">Búsquedas recientes</h4>
+          
+        </div>
+      </div>
+      <h2 class="reveal text-center mb-5">Tendencias</h2>
       <div class="loader d-none mx-auto" id="loader"></div>
       <div class="row testd" id="productos">        
       </div>
@@ -76,8 +83,17 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   ScrollReveal().reveal('.navbar', {delay: 500});
-  ScrollReveal().reveal('.jumbotron', {delay: 1000});  
+  ScrollReveal().reveal('.jumbotron', {delay: 1000});
+  ScrollReveal().reveal('.card', {delay: 1000});    
+  ScrollReveal().reveal('.reveal', {delay: 1000});  
 </script>
+<style>
+  .jumbotron {
+    background-image: url("https://wallpaperaccess.com/full/2175402.jpg");
+    background-size: cover;
+    filter: brightness(1.2);
+  }
+</style>
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://bootswatch.com/_assets/js/custom.js"></script>

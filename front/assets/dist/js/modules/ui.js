@@ -12,6 +12,7 @@ export default class UI {
     constructor(){        
         //Index y busqueda
         this.productos = document.getElementById('productos');
+        this.recentSearch = document.getElementById('recent-search');
         this.loader = document.getElementById('loader');
         //Formulario de busqueda
         this.buscarForm = document.getElementById('buscarForm');
@@ -40,12 +41,30 @@ export default class UI {
         this.buscarForm.addEventListener('submit', () => {  
             this.buscarInput.name = "q";
             this.buscarForm.action = "search.html";
-            this.buscarForm.method = "GET";            
+            this.buscarForm.method = "GET";                        
         })
     }
     //Llena el div tendencias del index con palabras mas buscadas
     llenarTendencias = async () => {
         await this.mostrarProductos('', 3)
+    }
+
+    busquedasRecientes = () => {        
+        for (let i = 0; i < sessionStorage.length; i++) {
+            let busqueda = sessionStorage.getItem(sessionStorage.key(i));
+
+            if(busqueda == '' || busqueda == 'true')        
+                console.log('Busqueda no valida')
+            else {
+                let button = document.createElement('button');
+                button.setAttribute('class', 'btn btn-warning btn-sm m-1');
+                button.textContent = busqueda;
+                button.addEventListener('click', () => {
+                    window.location = `search.html?q=${busqueda}` 
+                })
+                this.recentSearch.appendChild(button);                
+            }                
+        }
     }
 
     //Llena el div productos de una busqueda, 
@@ -71,6 +90,8 @@ export default class UI {
         if (json.hasOwnProperty("error"))
             this.productos.innerHTML += `<p class="col-12">${json.error}</h4>`;
         else {
+            if(tipo === 1)
+                sessionStorage.setItem(palabra, palabra);            
             json.forEach(element => {     
                 let col = document.createElement('div')
                 col.setAttribute('class', 'col-sm-6 col-md-4 col-lg-3 mb-4');
@@ -97,6 +118,10 @@ export default class UI {
                 text.setAttribute('class', 'card-text');
                 text.textContent = formatter.format(element.price);
 
+                let stockQ = document.createElement('h5');
+                stockQ.setAttribute('class', 'card-text text-primary');
+                stockQ.textContent = `Stock: ${element.stock}`;
+
                 let footer = document.createElement('div');
                 footer.setAttribute('class', 'card-footer text-center');        
 
@@ -116,6 +141,7 @@ export default class UI {
 
                 body.appendChild(title);
                 body.appendChild(text);
+                body.appendChild(stockQ);
 
                 if(element.stock !== 0) { 
                     footer.appendChild(button1);

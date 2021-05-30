@@ -1,44 +1,54 @@
 <%- include("include/header") %>
-<div class="mt-n5">
-  <main class="container mt-n5">
-    <div class="row">
-      <div class="col text-center mt-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 24 24"><path fill="black" d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm1.336-5l1.977-7h-16.813l2.938 7h11.898zm4.969-10l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"/></svg>
-        <strong class="d-block mt-n2 title">Tecla Store</strong>
-      </div>    
-    </div>
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card border-secondary my-3">
-          <div class="card-body">
-            <h4 class="card-title text-center mb-3 form-signin">Registro de cuenta</h4>
-            <h6 class="text-danger" id="error"><%= error %></h6>
-            <h6 class="text-success" id="ok"></h6>
-            <form id="signin">
-              <div class="form-group">
-                <label for="email">Nombres</label>
-                <input type="text" class="form-control" id="name" required>               
-              </div>
-              <div class="form-group">
-                <label for="email">Apellidos</label>
-                <input type="text" class="form-control" id="last_name" required>               
-              </div>
-              <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" required>              
-              </div>
-              <div class="form-group">
-                <label for="pass">Contraseña</label>
-                <input type="password" class="form-control" id="pass" required>
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Crear cuenta</button>
-              <div class="text-muted text-center mt-2">¿Ya tienes cuenta? <a href="/">Inicia sesión</a></div>
-            </form>
+<body>
+  <div class="mt-n5">
+    <main class="container mt-n5">
+      <div class="row">
+        <div class="col text-center mt-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 24 24"><path fill="black" d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm1.336-5l1.977-7h-16.813l2.938 7h11.898zm4.969-10l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"/></svg>
+          <strong class="d-block mt-n2 title">Tecla Store</strong>
+        </div>    
+      </div>
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card border-secondary my-3">
+            <div class="card-body">
+              <h4 class="card-title text-center mb-3 form-signin">Registro de cuenta</h4>
+              <form id="signin">
+                <div class="form-group">
+                  <label for="email">Nombres</label>
+                  <input type="text" class="form-control" id="name" required>               
+                </div>
+                <div class="form-group">
+                  <label for="email">Apellidos</label>
+                  <input type="text" class="form-control" id="last_name" required>               
+                </div>
+                <div class="form-group">
+                  <label for="email">Correo electrónico</label>
+                  <input type="email" class="form-control" id="email" required>              
+                </div>
+                <div class="form-group">
+                  <label for="pass">Contraseña</label>
+                  <input type="password" class="form-control" id="pass" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Crear cuenta</button>
+                <div class="text-muted text-center mt-2">¿Ya tienes cuenta? <a href="/">Inicia sesión</a></div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-</div>
-<script src="/js/signup.js"></script>
+    </main>
+  </div>
+  <script>
+    document.body.style.backgroundImage = "url('/img/backgroung-vg.jpg')"   
+    ScrollReveal().reveal('.container', {delay:200})
+    ScrollReveal().reveal('.form-group', {delay:400})
+  </script>
+  <style>
+    .card{
+      background-color: rgba(245, 245, 245, 0.5);
+    }    
+  </style>
+  <script src="/js/signup.js"></script>
+</body>
 <%- include("include/footer") %>

@@ -23,7 +23,11 @@ form.addEventListener('submit', async (event) => {
     let res = await req.json();
     
     if(res.hasOwnProperty('error'))
-        error.textContent = res.error;
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: res.error
+        })
     else
-        window.location = '/index';
+        window.location = '';
 })

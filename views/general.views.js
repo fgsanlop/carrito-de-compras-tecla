@@ -18,4 +18,10 @@ router.get('/super-carga-chetada', (req, res) => {
     res.render('-carga-productos-ml-');
 })
 
+////////////////////////////////////////////
+
+router.get('/admin/login', (req, res) => {
+    res.render('admin/login')
+})
+
 module.exports = router;

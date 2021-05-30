@@ -26,12 +26,19 @@ form.addEventListener('submit', async (event) => {
     let res = await req.json();
     
     if(res.hasOwnProperty('error')){
-        error.textContent = res.error;
-        ok.textContent = '';
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: res.error
+        })
     }        
     else {
-        error.textContent = '';
-        ok.textContent = res;
+        Swal.fire({
+            icon: 'success',
+            title: 'Listo!',
+            text: res,
+            footer: '<a href="/">Ir a inicio de sesión</a>'
+          })
     }
         
 })
