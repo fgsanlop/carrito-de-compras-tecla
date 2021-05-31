@@ -97,9 +97,9 @@ export default class Product {
         console.log(resultado);
 
         if(resultado.hasOwnProperty('error'))
-            return false;
+            return resultado.error;
         else
-            return true;
+            return 'ok';
     }
 
     crearProducto = async () => {

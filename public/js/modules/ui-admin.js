@@ -193,14 +193,14 @@ export default class UI {
                 producto.picture = this.productPictureUrl.value;
                 producto.stock = this.productStock.value;
                 let modificarProducto = await producto.modificarProducto();
-                if(modificarProducto) {
+                if(modificarProducto == 'ok') {
                     Swal.fire(`Producto con ID: ${producto.id} modificado`, '', 'success');   
                     setTimeout(() => {
                         location.reload();
                     }, 2500);                   
                 }
                 else
-                    Swal.fire('Ocurrio un problema en la modificación del producto', '', 'error');
+                    Swal.fire('Ocurrio un problema en la modificación del producto', modificarProducto, 'error');
             })
         }                
     }

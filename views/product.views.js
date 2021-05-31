@@ -2,6 +2,7 @@ const express = require('express');
 const productController = require('../controllers/product.controller');
 const router = express.Router();
 const middjwt = require('../midd/midd.jwt');
+const middValidation = require('../midd/midd.validation');
 
 router.get('/product/trends', async (req, res) => {
     try {
@@ -29,7 +30,9 @@ router.get('/product/trends/keywords', async (req, res) => {
     }
 })
 
-router.post('/product/register', middjwt.checarTokenAdmin, async (req, res) => {
+router.post('/product/register', 
+middValidation.validarRegistroModProducto, 
+middjwt.checarTokenAdmin, async (req, res) => {
     let body = req.body;
     try {
         if (Object.keys(body).length == 0)
@@ -80,7 +83,9 @@ router.get('/product/:id', async (req, res) => {
     }
 })
 
-router.put('/product/update/:id', middjwt.checarTokenAdmin, async (req,res) => {
+router.put('/product/update/:id', 
+middValidation.validarRegistroModProducto,
+middjwt.checarTokenAdmin, async (req,res) => {
     let id = req.params.id;
     let body = req.body;
     try {

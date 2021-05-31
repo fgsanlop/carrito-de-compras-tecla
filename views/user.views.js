@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
 const middjwt = require('../midd/midd.jwt');
+const middValidation = require('../midd/midd.validation');
 
-router.post('/user/register', async (req, res) => {
+router.post('/user/register', middValidation.validarSignUp, async (req, res) => {
     let body = req.body;    
     try {
         if (Object.keys(body).length == 0)
@@ -15,7 +16,7 @@ router.post('/user/register', async (req, res) => {
     }
 });
 
-router.post('/user/login', async (req, res) => {
+router.post('/user/login', middValidation.validarLogin, async (req, res) => {
     let body = req.body;    
     let remember = req.body.remember;
     try {
@@ -33,7 +34,7 @@ router.post('/user/login', async (req, res) => {
     }
 });
 
-router.post('/admin/login', async (req, res) => {
+router.post('/admin/login', middValidation.validarLogin, async (req, res) => {
     let body = req.body;    
     let remember = req.body.remember;
     try {
@@ -51,7 +52,7 @@ router.post('/admin/login', async (req, res) => {
     }
 });
 
-router.put('/user/update/:id', middjwt.checarToken, async (req,res) => {
+router.put('/user/update/:id', middValidation.validarActualizacionUsuario, middjwt.checarToken, async (req,res) => {
     let id = req.params.id;
     let body = req.body;
     const token = req.headers.authorization.split(' ')[1];            

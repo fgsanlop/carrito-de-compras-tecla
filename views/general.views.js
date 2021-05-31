@@ -18,20 +18,16 @@ router.get('/super-carga-chetada', (req, res) => {
     res.render('-carga-productos-ml-');
 })
 
-////////////////////////////////////////////
-
+/*------------EJS Admin------------*/
 router.get('/admin/login', middjwt.loggeadoAdmin, (req, res) => {
     res.render('admin/login')
 })
-
 router.get('/admin/index', middjwt.headerViewAdmin, middjwt.checarTokenAdmin, (req, res) => {
     res.render('admin/index')
 })
-
 router.get('/admin/product', middjwt.headerViewAdmin, middjwt.checarTokenAdmin, (req, res) => {
     res.render('admin/product')
 })
-
 router.get('/admin/product/create', middjwt.headerViewAdmin, middjwt.checarTokenAdmin, (req, res) => {
     res.render('admin/create')
 })
