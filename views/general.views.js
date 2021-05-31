@@ -19,7 +19,7 @@ router.get('/super-carga-chetada', (req, res) => {
 })
 
 /*------------EJS Admin------------*/
-router.get('/admin/login', middjwt.loggeadoAdmin, (req, res) => {
+router.get('/admin/login', (req, res) => {
     res.render('admin/login')
 })
 router.get('/admin/index', middjwt.headerViewAdmin, middjwt.checarTokenAdmin, (req, res) => {

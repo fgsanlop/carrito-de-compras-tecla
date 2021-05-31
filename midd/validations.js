@@ -4,19 +4,20 @@ module.exports = {
     login: Joi.object().keys({
         email: Joi.string().email().required().max(100),
         pass: Joi.string().required().max(20),
+        remember: Joi.boolean().required()
     }),
 
     signup: Joi.object().keys({
         email: Joi.string().email().required().max(100),
         pass: Joi.string().required().max(20),
-        name: Joi.string().regex(/[a-zA-Z]/).required().max(20),
-        last_name: Joi.string().regex(/[a-zA-Z]/).required().max(20),              
+        name: Joi.string().regex(/^[a-zA-Z]+$/).required().max(20),
+        last_name: Joi.string().regex(/^[a-zA-Z]+$/).required().max(20),              
     }),
 
     userUpdate: Joi.object().keys({
         pass: Joi.string().required().max(20),
-        name: Joi.string().regex(/[a-zA-Z]/).required().max(20),
-        last_name: Joi.string().regex(/[a-zA-Z]/).required().max(20),              
+        name: Joi.string().regex(/^[a-zA-Z]+$/).required().max(20),
+        last_name: Joi.string().regex(/^[a-zA-Z]+$/).required().max(20),              
     }),
 
     product: Joi.object().keys({
