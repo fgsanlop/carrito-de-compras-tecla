@@ -39,7 +39,7 @@ module.exports = class ProductModel {
     }
     //R
     static listarProductos = async () => {
-        let productos = await Product.findAll();
+        let productos = await Product.findAll({order: [['updatedAt', 'DESC']]});
         if (productos === null || productos.length == 0)
             throw Error('No hay productos en inventario')
         else 
@@ -106,6 +106,7 @@ module.exports = class ProductModel {
             productoAModificar.description = this.description;
             productoAModificar.price = this.price;
             productoAModificar.stock = this.stock;
+            productoAModificar.picture = this.picture;
             await productoAModificar.save();
             return 'Producto modificado';                                                
         } catch (error) {

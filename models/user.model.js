@@ -37,11 +37,12 @@ module.exports = class UserModel {
         else 
             return true        
     }
-    comprobarCredenciales = async () => {
+    comprobarCredenciales = async (role) => {
         let existeUsuario = await User.findOne({
             where: {
+                role_id: role,
                 email: this.email, 
-                pass: this.pass
+                pass: this.pass                
             } 
         });
 

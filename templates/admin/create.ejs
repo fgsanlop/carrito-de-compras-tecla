@@ -1,0 +1,46 @@
+<%- include("../include/header") %>
+<body>
+    
+    <%- include("../include/navbar-admin") %>
+    <main class="container">
+        <div class="row mt-n2" id="product-detail">                                                          
+            <div class="col-lg-6 mx-auto">                
+                <form id="crear">
+                    <div class="form-group w-100">
+                        <label class="lead form-label">Titulo:</label>
+                        <input type="text" class="form-control" id="product-title" maxlength="100" required>                                
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label class="lead form-label">Categoria:</label>                 
+                            <select class="form-control" id="product-category" required></select> 
+                        </div>
+                        <div class="col">
+                            <label class="lead form-label">Precio:</label>
+                            <input type="number" class="form-control" id="product-price" min="0" max="9999999999" step="0.01" required>  
+                        </div>                                                                                  
+                    </div>  
+                    <div class="form-group">
+                        <label class="lead form-label">Descripcion:</label>
+                        <textarea class="form-control" id="product-description" rows="5" id="product-description" maxlength="250" required></textarea>                        
+                    </div>  
+                    <div class="form-group">
+                        <label class="lead form-label">Imagen:</label>
+                        <input type="text" class="form-control" id="product-picture-url" maxlength="300" required>                                
+                    </div>  
+                    <div class="form-group">
+                        <label class="lead form-label">Stock:</label>
+                        <input type="number" class="form-control" id="product-stock" min="0" step="1" max="9999999">                                
+                    </div>   
+                    <div class="form-group">
+                        <input type="submit" value="Crear" class="btn btn-success mx-auto d-block m-3">                                
+                    </div>   
+                </form>  
+            </div>                                                                                        
+        </div>
+        
+    </main>    
+    <!--Scripts Carrito-->
+    <script type="module" src="/js/admin/create.js"></script>
+</body>
+<%- include("../include/footer") %>

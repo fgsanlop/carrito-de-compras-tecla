@@ -25,7 +25,26 @@ const registrarUsuario = async (data) => {
 const iniciarSesion = async (data) => {
     const { email, pass } = data;
     let loginUsuario = new UserModel(email, pass, '', '');
-    let correcto = await loginUsuario.comprobarCredenciales();
+    let correcto = await loginUsuario.comprobarCredenciales(1);
+    try {
+        if(correcto !== false) {
+            console.log(correcto);
+            let token = await generarToken(correcto);
+            console.log(token)
+            return token;
+        }
+        else {
+            throw new Error('Credenciales incorrectas');
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+const iniciarSesionAdmin = async (data) => {
+    const { email, pass } = data;
+    let loginAdmin = new UserModel(email, pass, '', '');
+    let correcto = await loginAdmin.comprobarCredenciales(2);
     try {
         if(correcto !== false) {
             console.log(correcto);
@@ -65,6 +84,7 @@ module.exports = {
     generarToken,
     registrarUsuario,
     iniciarSesion,
+    iniciarSesionAdmin,
     modificarUsuario,
     eliminarUsuario
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const productController = require('../controllers/product.controller');
 const router = express.Router();
+const middjwt = require('../midd/midd.jwt');
 
 router.get('/product/trends', async (req, res) => {
     try {
@@ -28,7 +29,7 @@ router.get('/product/trends/keywords', async (req, res) => {
     }
 })
 
-router.post('/product/register', /*MIDDLEWARE ADMIN*/async (req, res) => {
+router.post('/product/register', middjwt.checarTokenAdmin, async (req, res) => {
     let body = req.body;
     try {
         if (Object.keys(body).length == 0)
@@ -79,12 +80,11 @@ router.get('/product/:id', async (req, res) => {
     }
 })
 
-router.put('/product/update/:id', /*MIDDLEWARE ADMIN*/async (req,res) => {
+router.put('/product/update/:id', middjwt.checarTokenAdmin, async (req,res) => {
     let id = req.params.id;
     let body = req.body;
     try {
-        if (Object.keys(body).length == 0)
-            throw new Error('Datos vacios');
+        console.log(body);
         let resultado = await productController.modificarProducto(id, body);
         res.status(200).json(resultado);            
     } catch (error) {
@@ -92,7 +92,7 @@ router.put('/product/update/:id', /*MIDDLEWARE ADMIN*/async (req,res) => {
     }
 });
 
-router.delete('/product/delete/:id', /*MIDDLEWARE ADMIN*/async (req,res) => {
+router.delete('/product/delete/:id', middjwt.checarTokenAdmin, async (req,res) => {
     let id = req.params.id;
     try {
         let resultado = await productController.eliminarProducto(id);
