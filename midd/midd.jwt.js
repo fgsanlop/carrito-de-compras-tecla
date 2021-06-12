@@ -15,16 +15,16 @@ const headerViewAdmin = (req, res, next) => {
 //Comprueba que el token funcione
 const loggeado = (req, res, next) => {
     if(req.cookies.token != undefined)
-        res.redirect('/index')         
-    next();
+        res.redirect('/index')  
+    else       
+        next();
 }
 
 const loggeadoAdmin = (req, res, next) => {
     if(req.cookies.tokenAdmin != undefined)
         res.redirect('/admin/index')   
-    else
-        res.redirect('/admin/login')      
-    next();
+    else     
+        next();
 }
 
 const checarToken = (req, res, next) => {    
@@ -50,8 +50,7 @@ const checarTokenAdmin = (req, res, next) => {
     if (req.headers.authorization != undefined) {
         try {
             const token = req.headers.authorization.split(' ')[1];
-            const verified = jwt.verify(token, process.env.SECRET_KEY);  
-            //console.log('TOKEEEEEEEEN:', verified);          
+            const verified = jwt.verify(token, process.env.SECRET_KEY);            
             if (verified) 
                 if (verified.data.role_id == 2)
                     next();

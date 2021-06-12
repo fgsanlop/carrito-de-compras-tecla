@@ -1,0 +1,22 @@
+<%- include("include/header") %>
+<body>
+<%- include("include/navbar-user") %>
+    <main>  
+    <div class="container mt-n4 cart">
+        <h1 class="mb-4">Agregado a carrito</h1>
+        <div class="row">
+        <div class="col-sm-12 col-md-8" id="cart">
+        </div>
+        <div class="col">
+            <div class="card border-secondary">
+            <h3 class="card-title text-center mt-3 text-muted">Total</h3>
+            <div class="card-body text-center" id="total">                                
+            </div>
+            </div>
+        </div>      
+        </div>
+    </div>
+
+    </main>
+    <script type="module" src="/js/cart.js"></script>
+<%- include("include/footer") %>

@@ -43,7 +43,7 @@ export default class UI {
         this.loader.classList.toggle('d-none');
         
         let json = await this.api.buscarTodosLosProductos();
-
+        
         json = json.slice(0,20);
 
         console.log(json);

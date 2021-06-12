@@ -1,4 +1,4 @@
-import User from '../modules/user.js';
+import Admin from '../modules/admin.js';
 
 const form = document.getElementById('login');
 const email = document.getElementById('email');
@@ -7,22 +7,10 @@ const recordar = document.getElementById('recordar');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const usuario = new User('', '', email.value, pass.value);
+    const admin = new Admin(email.value, pass.value);
     let check = recordar.checked;
-    let req = await fetch("http://localhost:3000/api/admin/login", {
-        method: 'POST',
-        headers: {
-            "Accept": "application/json, text/plain, *,*",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            "email": usuario.email,
-            "pass": usuario.pass,
-            "remember": check
-        })
-    });
-
-    let res = await req.json();
+    
+    let res = await admin.login(check);
     
     if(res.hasOwnProperty('error'))
         Swal.fire({

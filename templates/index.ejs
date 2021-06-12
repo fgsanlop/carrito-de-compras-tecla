@@ -1,0 +1,41 @@
+<%- include("include/header") %>
+<body>
+<%- include("include/navbar-user") %>
+<main>
+    <section class="text-center container mt-n4">
+      <div class="row">
+        <div class="mx-auto">
+          <div class="jumbotron">
+            <h1 class="display-2">¡Bienvenido a Tecla Store!</h1>
+            <p class="lead">Productos y accesorios sobre videojuegos más buscados</p>          
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="pb-5 bg-light">
+      <div class="container">
+        <div class="card mb-5">
+          <div class="card-body" id="recent-search">
+            <h4 class="card-title text-muted">Búsquedas recientes</h4>
+            
+          </div>
+        </div>
+        <h2 class="reveal text-center mb-5">Tendencias</h2>
+        <div class="loader d-none mx-auto" id="loader"></div>
+        <div class="row testd" id="productos">        
+        </div>
+      </div>
+    </div>
+  
+  </main>
+  
+  <footer class="text-muted py-5">
+    <div class="container">
+      <p class="float-end mb-1">
+        <a href="#tendencias">Volver a arriba</a>
+      </p>    
+    </div>
+  </footer>    
+  <script type="module" src="/js/index.js"></script>
+<%- include("include/footer") %>

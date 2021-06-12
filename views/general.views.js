@@ -2,16 +2,36 @@ const express = require('express');
 const middjwt = require('../midd/midd.jwt');
 const router = express.Router();
 
-router.get('/', /*middjwt.loggeado,*/ (req, res) => {
-    res.render('login', {error: ''});
+router.get('/login', middjwt.loggeado, (req, res) => {
+    res.render('login');
 });
 
-router.get('/signup', (req, res) => {
-    res.render('signup', {error: ''});
+router.get('/signup', middjwt.loggeado, (req, res) => {
+    res.render('signup');
 });
 
-router.get('/index', middjwt.headerViewUsuario, middjwt.checarToken, (req, res) => {
+router.get('/', (req, res) => {
     res.render('index');
+})
+
+router.get('/categories', (req, res) => {
+    res.render('categories');
+})
+
+router.get('/cart', (req, res) => {
+    res.render('cart');
+})
+
+router.get('/product', (req, res) => {
+    res.render('product');
+})
+
+router.get('/search', (req, res) => {
+    res.render('search');
+})
+
+router.get('/checkout', (req, res) => {    
+    res.render('checkout');
 })
  
 router.get('/super-carga-chetada', (req, res) => {
@@ -19,7 +39,7 @@ router.get('/super-carga-chetada', (req, res) => {
 })
 
 /*------------EJS Admin------------*/
-router.get('/admin/login', (req, res) => {
+router.get('/admin/login', middjwt.loggeadoAdmin, (req, res) => {
     res.render('admin/login')
 })
 router.get('/admin/index', middjwt.headerViewAdmin, middjwt.checarTokenAdmin, (req, res) => {

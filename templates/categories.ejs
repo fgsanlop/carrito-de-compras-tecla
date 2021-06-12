@@ -1,0 +1,27 @@
+<%- include("include/header") %>
+<body>
+<%- include("include/navbar-user") %>
+<main>
+    <div class="row mt-n4">
+      <div class="container mx-auto text-center">
+        <h1>¡Categorias sobre videojuegos!</h1>
+        <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
+          <select id="sel-categories" class="form-select text-center">
+          </select>
+        </div>      
+        <button id="btn-categories" class="mt-3 btn btn-primary btn-lg">Buscar</button>
+      </div>
+    </div>
+    
+    
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="loader d-none mx-auto" id="loader"></div>
+        <div class="row" id="productos">       
+        </div>
+      </div>
+    </div>
+  
+  </main>
+  <script type="module" src="/js/categories.js"></script>
+<%- include("include/footer") %>

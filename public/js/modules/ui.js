@@ -40,7 +40,7 @@ export default class UI {
         //Al iniciar el objeto UI en cualquier lugar, el formulario de busqueda funcionara en todas las paginas
         this.buscarForm.addEventListener('submit', () => {  
             this.buscarInput.name = "q";
-            this.buscarForm.action = "search.html";
+            this.buscarForm.action = "search";
             this.buscarForm.method = "GET";                        
         })
     }
@@ -60,7 +60,7 @@ export default class UI {
                 button.setAttribute('class', 'btn btn-warning btn-sm m-1');
                 button.textContent = busqueda;
                 button.addEventListener('click', () => {
-                    window.location = `search.html?q=${busqueda}` 
+                    window.location = `search?q=${busqueda}` 
                 })
                 this.recentSearch.appendChild(button);                
             }                
@@ -127,7 +127,7 @@ export default class UI {
 
                 let button1 = document.createElement('a');
                 button1.setAttribute('class', 'btn btn-primary');
-                button1.setAttribute('href', `product.html?id=${element.id}`);
+                button1.setAttribute('href', `product?id=${element.id}`);
                 button1.setAttribute('target', '_blank');
                 button1.textContent = 'Ver más';
 
@@ -148,7 +148,7 @@ export default class UI {
                     footer.appendChild(button2);
                 }
                 else
-                    body.appendChild(stock);                                    
+                    footer.appendChild(stock);                                    
 
                 card.appendChild(img);
                 card.appendChild(body);
@@ -223,7 +223,7 @@ export default class UI {
                 col1.setAttribute('class', 'col-md-5 d-flex align-items-center');
 
                 let a = document.createElement('a');
-                a.href = 'product.html?id=' + product.id;                
+                a.href = 'product?id=' + product.id;                
 
                 let img = document.createElement('img');
                 img.src = product.picture;
@@ -269,7 +269,7 @@ export default class UI {
 
             let buttonPagar = document.createElement('a');
             buttonPagar.setAttribute('class', 'btn btn-primary w-100');
-            buttonPagar.href = 'checkout.html';
+            buttonPagar.href = 'checkout';
             buttonPagar.innerText = 'Pasar a checkout';             
 
             let h1 = document.createElement('h1');
@@ -367,7 +367,7 @@ export default class UI {
                 this.productAddCartBtn.textContent = "Producto ya en carrito";
                 this.productAddCartBtn.setAttribute('class', 'btn btn-primary')
                 this.productAddCartBtn.addEventListener('click', () => {
-                    window.location = 'cart.html';
+                    window.location = 'cart';
                 });
             }             
         this.productPicture.innerHTML = `<img class="w-100" src="${product.picture}">`;

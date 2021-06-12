@@ -1,0 +1,62 @@
+<%- include("include/header") %>
+<body>
+<%- include("include/navbar-user") %>
+    <main>
+        <section class="container">
+        <div class="row" id="product-div">
+            <div class="mx-auto">   
+            <div class="container mt-n4">
+                <div class="row">
+                <div class="col-12">
+                    <h1 class="page-header mb-4 text-center" id="product-title"></h1>               
+                </div>
+                </div>          
+                <div class="row">
+                <div class="col-lg-6 mb-4 text-center d-flex align-items-start justify-content-center px-2" id="product-picture">                                
+    
+                </div>                       
+                <div class="col-lg-6">
+                    <div class="form-group row">
+                    <label class="col-sm-3 col-md-3 lead">Precio:</label>
+                        <div class="col-sm-8 col-md-9">
+                        <h3 class="product-form-price" id="product-price"></h3>
+                        </div>
+                    </div>                  
+                    <div class="form-group row">
+                    <label class="col-sm-3 col-md-3 lead">Última actualización:</label>
+                    <div class="col-sm-8 col-md-9">
+                        <h5 class="product-form-price" id="product-update"></h5>
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                    <label class="col-sm-3 col-md-3 lead">Stock:</label>
+                    <div class="col-sm-8 col-md-9">
+                        <h5 class="product-form-price" id="product-stock"></h5>
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                    <label class="col-sm-3 col-md-3 lead">Vendidos:</label>
+                    <div class="col-sm-8 col-md-9">
+                        <h5 class="product-form-price" id="product-sold"></h5>
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                    <div class="col text-center">
+                        <button class="btn btn-success mb-4" id="product-add">Agregar a carrito</button>
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                    <label class="col-sm-3 col-md-3 lead">Descripción:</label>
+                    <div class="col-sm-8 col-md-9 text-justify">
+                        <p id="product-description">The DualShock®4 Wireless Controller for PlayStation®4 defines the next generation of play, combining revolutionary new features with intuitive, precision controls. Improved analog sticks and trigger buttons allow for unparalleled accuracy with every move while innovative new technologies such as the multi-touch, clickable touch pad, integrated light bar, and internal speaker offer exciting new ways to experience and interact with your games. And with the addition of the Share button, celebrate and upload your greatest gaming moments on PlayStation®4 with the touch of a button.&nbsp;</p>
+                    </div>
+                    </div>  
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+    </main>   
+    <script type="module" src="/js/product.js"></script>
+<%- include("include/footer") %>
