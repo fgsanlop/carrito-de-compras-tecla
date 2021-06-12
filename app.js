@@ -44,10 +44,10 @@ app.use(generalViews);
 const serverStart = async () => {
     try {                
         await sequelize.authenticate();        
-        await Role.sync({alter:true});
+        /*await Role.sync({alter:true});
         await User.sync({alter:true});
         await Categorie.sync({alter:true});
-        await Product.sync({alter:true});        
+        await Product.sync({alter:true});  */      
 
         //Parametros iniciales para roles, aqui tambien entrarian categorias (datos precargados)
         await Role.findOrCreate({

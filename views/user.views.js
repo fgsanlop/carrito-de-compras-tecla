@@ -87,8 +87,9 @@ router.delete('/user/delete/:id', middjwt.checarToken, async (req,res) => {
     }
 });
 
-router.post('/user/logout', middjwt.checarToken, async (req,res) => {
+router.get('/user/logout', middjwt.headerViewUsuario, middjwt.checarToken, async (req,res) => {
     res.clearCookie('token');    
+    res.redirect('/');  
 });
 
 router.get('/admin/logout', middjwt.headerViewAdmin, middjwt.checarTokenAdmin, async (req,res) => {

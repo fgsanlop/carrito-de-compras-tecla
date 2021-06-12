@@ -12,10 +12,17 @@ const headerViewAdmin = (req, res, next) => {
     next();
 }
 
-//Comprueba que el token funcione
+//REDIRECCIONAMIENTO SI USUARIO YA HA INICIADO
+const loggeadoCheckOutDatos = (req, res, next) => {
+    if(req.cookies.token != undefined)
+        next();
+    else       
+        res.redirect('/login')    
+}
+
 const loggeado = (req, res, next) => {
     if(req.cookies.token != undefined)
-        res.redirect('/index')  
+        res.redirect('/')  
     else       
         next();
 }
@@ -80,6 +87,7 @@ module.exports = {
     headerViewAdmin,
     checarToken,
     loggeado,
+    loggeadoCheckOutDatos,
     loggeadoAdmin,
     decodificarToken,
     checarTokenAdmin

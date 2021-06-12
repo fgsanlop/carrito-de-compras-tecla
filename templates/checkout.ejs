@@ -1,0 +1,113 @@
+<%- include("include/header") %>
+<body>
+<%- include("include/navbar-user") %>
+<main>
+
+    <section class="container mt-n4 mb-5">
+      <div class="row">
+        <div class="mx-auto">
+          <div class="">
+            <div class="text-center">
+                <h1>Checkout</h1>
+                <p class="lead">Seccion para validar compras.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-5 order-md-2 mb-4" id="checkout">
+                    
+                </div>
+                <div class="col-md-7 order-md-1">
+                    <h4 class="mb-3">Dirección de Envio</h4>
+                    <form class="needs-validation" novalidate="">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName">Primer nombre</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                                <div class="invalid-feedback"> Valid first name is required. </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName">Apellidos</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                                <div class="invalid-feedback"> Valid last name is required. </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Correo <span class="text-muted">(Opcional)</span></label>
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                            <div class="invalid-feedback"> Validar correo. </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address">Dirección</label>
+                            <input type="text" class="form-control" id="address" placeholder="" required="">
+                            <div class="invalid-feedback"> Validar. </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label for="country">Ciudad</label>
+                                <select class="custom-select d-block w-100" id="country" required="">
+                                    <option value="">Selecciona</option>
+                                    <option>Mexico</option>
+                                </select>
+                                <div class="invalid-feedback"> Seleccionar una Ciudad. </div>
+                            </div>
+                         
+                            
+                        </div>
+                        <hr class="mb-4">
+                        
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="save-info">
+                            <label class="custom-control-label" for="save-info">Guardar Información para Proximas Compras</label>
+                        </div>
+                        <hr class="mb-4">
+                        <h4 class="mb-3">Metodo de Pago</h4>
+                        <div class="d-block my-3">
+                            <div class="custom-control custom-radio">
+                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                                <label class="custom-control-label" for="credit">Credit card</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="debit">Debit card</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="paypal">PayPal</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-name">Nombre de Banco</label>
+                                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                                <div class="invalid-feedback"> Nombre de Tarjeta Requerido </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-number">Numero de Tarjeta</label>
+                                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                                <div class="invalid-feedback"> El numero es Requerido </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="cc-expiration">Expiración</label>
+                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                                <div class="invalid-feedback"> Expiration date required </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="cc-cvv">CVV</label>
+                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                                <div class="invalid-feedback"> Security code required </div>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Pagar</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+    </section>
+  
+  </main>
+  <script type="module" src="/js/checkout.js"></script>
+<%- include("include/footer") %>

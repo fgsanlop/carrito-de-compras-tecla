@@ -7,22 +7,9 @@ const recordar = document.getElementById('recordar');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const usuario = new User('', '', email.value, pass.value);
+    const usuario = new User(email.value, pass.value);
     let check = recordar.checked;
-    let req = await fetch("http://localhost:3000/api/user/login", {
-        method: 'POST',
-        headers: {
-            "Accept": "application/json, text/plain, *,*",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            "email": usuario.email,
-            "pass": usuario.pass,
-            "remember": check
-        })
-    });
-
-    let res = await req.json();
+    let res = await usuario.login(check)
     
     if(res.hasOwnProperty('error'))
         Swal.fire({
@@ -31,9 +18,5 @@ form.addEventListener('submit', async (event) => {
             text: res.error
         })
     else
-        Swal.fire({
-            icon: 'success',
-            title: 'Token',
-            text: res
-        })
+        window.location = '/'
 })
