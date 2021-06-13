@@ -85,17 +85,17 @@
                         <div class="row">
                             <div class="col mb-3">
                                 <label for="cc-number">Numero de Tarjeta</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required="">                      
+                                <input type="text" class="form-control" id="cc-number" minlength="12" maxlength="16" pattern="[0-9]+" title="La tarjeta tiene un mínimo de 12 y un máximo de 16 números" required>                      
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col mb-3">
-                                <label for="cc-expiration">Expiración</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required=""> 
+                            <div class="col-6 mb-3">
+                                <label for="cc-expiration">Expiración (AA/MM)</label>
+                                <input type="text" class="form-control" id="cc-expiration" pattern="[0-9][0-9]/[0-1][0-9]" required> 
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-6 mb-3">
                                 <label for="cc-cvv">CVV</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required=""> 
+                                <input type="text" class="form-control" id="cc-cvv" pattern="[0-9]" minlength="3" maxlength="3" required> 
                             </div>
                         </div>
                         <hr class="mb-4">

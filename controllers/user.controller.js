@@ -22,6 +22,15 @@ const registrarUsuario = async (data) => {
     }    
 }
 
+const obtenerDatos = async (id) => {        
+    try {
+        let usuario = UserModel.obtenerDatos(id);
+        return usuario;
+    } catch (error) {
+        throw error;
+    }    
+}
+
 const iniciarSesion = async (data) => {
     const { email, pass } = data;
     let loginUsuario = new UserModel(email, pass, '', '');
@@ -61,19 +70,20 @@ const iniciarSesionAdmin = async (data) => {
 }
 
 const modificarUsuario = async (id, data) => {
-    const { pass, name, last_name } = data;  
+    const { name, last_name, pass, new_pass } = data;  
     let modUsuario = new UserModel('', pass, name, last_name); 
     try {        
-        let res = await modUsuario.modificarUsuario(id);
+        let res = await modUsuario.modificarUsuario(id, new_pass);
         return res;
     } catch (error) {
         throw error;
     }
 }
 
-const eliminarUsuario = async (id) => {  
+const eliminarUsuario = async (id, pass) => {  
     try {        
-        let res = await UserModel.eliminarUsuario(id);
+        let usuarioAEliminar = new UserModel('', pass);
+        let res = await usuarioAEliminar.eliminarUsuario(id);
         return res;
     } catch (error) {
         throw error;
@@ -86,5 +96,6 @@ module.exports = {
     iniciarSesion,
     iniciarSesionAdmin,
     modificarUsuario,
-    eliminarUsuario
+    eliminarUsuario,
+    obtenerDatos
 }

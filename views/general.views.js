@@ -102,8 +102,12 @@ router.get('/purchases', middjwt.loggeadoCheckOutDatos, (req, res) => {
     }})
 })
 
-router.get('/user', middjwt.loggeado, (req, res) => {    
-    res.render('user');
+router.get('/user', middjwt.loggeadoCheckOutDatos, (req, res) => {    
+    let datos = datosUsuario(req.cookies.token);   
+    res.render('user', {login: {
+        name: datos.name,
+        last_name: datos.last_name
+    }})
 })
  
 router.get('/super-carga-chetada', (req, res) => {

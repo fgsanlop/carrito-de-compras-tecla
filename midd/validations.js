@@ -14,10 +14,15 @@ module.exports = {
         last_name: Joi.string().regex(/^[a-zA-Z]+$/).required().max(20),              
     }),
 
-    userUpdate: Joi.object().keys({
-        pass: Joi.string().required().max(20),
+    userUpdate: Joi.object().keys({        
         name: Joi.string().regex(/^[a-zA-Z]+$/).required().max(20),
-        last_name: Joi.string().regex(/^[a-zA-Z]+$/).required().max(20),              
+        last_name: Joi.string().regex(/^[a-zA-Z]+$/).required().max(20), 
+        pass: Joi.string().required().max(20),
+        new_pass: Joi.string().required().max(20)      
+    }),
+
+    userDelete: Joi.object().keys({        
+        pass: Joi.string().required().max(20)          
     }),
 
     product: Joi.object().keys({

@@ -31,6 +31,16 @@ const validarActualizacionUsuario = async (req, res, next) => {
     }
 }
 
+const validarEliminacionUsuario = async (req, res, next) => {
+    try{
+        await Joi.attempt(req.body, validations.userDelete, 'Datos incorrectos');
+        return next()
+    }catch (err){
+        console.log(err)
+        res.status(500).json({error: err.message})
+    }
+}
+
 const validarRegistroModProducto = async (req, res, next) => {
     try{
         await Joi.attempt(req.body, validations.product, 'Datos incorrectos')
@@ -55,6 +65,7 @@ module.exports = {
     validarLogin,
     validarSignUp,
     validarActualizacionUsuario,
+    validarEliminacionUsuario,
     validarRegistroModProducto,
     validarCompra
 }

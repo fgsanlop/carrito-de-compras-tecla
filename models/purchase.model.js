@@ -56,7 +56,10 @@ module.exports = class PurchaseModel {
                 },
                 include: {
                     model: PurchaseDetail
-                }
+                },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
             });           
             if (compras.length == 0)
                 throw new Error('No hay compras registradas');            

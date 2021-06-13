@@ -72,7 +72,7 @@ else {
                 title: `Total: ${formatter.format(compra.total)} (ID: ${compra.id})`,                
                 width: '90%',
                 html: `
-                <table class="table my-4">
+                <table class="table my-4 text-left">
                     <tr>
                         <th>Producto</th>
                         <th>Precio</th>

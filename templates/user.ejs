@@ -1,0 +1,48 @@
+<%- include("include/header") %>
+<body>
+<%- include("include/navbar-user") %>
+    <main> 
+        <div class="mt-n4 pb-5 bg-light">
+            <div class="container">                      
+                <div class="row">
+                    <div class="col-md-8 col-lg-6 mx-auto">
+                        <h1>Datos de usuario</h1>
+                        <p class="text-success">Última actualización: <strong id="updatedAt"></strong></p>
+                        <form id="user" class="mt-4">
+                            <div class="form-group">
+                                <label for="email">Correo electrónico</label>
+                                <input type="text" class="form-control" id="email" maxlength="100" readonly>              
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Nombres</label>
+                                <input type="text" class="form-control" id="name" pattern="[A-Za-z]+" title="Solo letras" maxlength="20" required>               
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Apellidos</label>
+                                <input type="text" class="form-control" id="last_name" pattern="[A-Za-z]+" title="Solo letras" maxlength="20" required>               
+                            </div>                            
+                            <div class="form-group">
+                                <label for="pass">Contraseña actual</label>
+                                <input type="password" class="form-control" id="pass" maxlength="20" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new_pass">Contraseña nueva o confirmar contraseña</label>
+                                <input type="password" class="form-control" id="new_pass" maxlength="20" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="mt-4 btn btn-primary w-100">Modificar</button>                                
+                            </div>
+                        </form>
+                        <div class="card border-danger">
+                            <div class="card-header">Ten cuidado con lo que haces</div>
+                                <div class="card-body">
+                                    <button type="submit" id="delete" class="btn btn-danger w-100">Eliminar cuenta</button>
+                                </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="/js/user.js"></script>
+<%- include("include/footer") %>
