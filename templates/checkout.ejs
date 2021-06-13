@@ -17,85 +17,85 @@
                 </div>
                 <div class="col-md-7 order-md-1">
                     <h4 class="mb-3">Dirección de Envio</h4>
-                    <form class="needs-validation" novalidate="">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="firstName">Primer nombre</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                                <div class="invalid-feedback"> Valid first name is required. </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="lastName">Apellidos</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-                                <div class="invalid-feedback"> Valid last name is required. </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email">Correo <span class="text-muted">(Opcional)</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                            <div class="invalid-feedback"> Validar correo. </div>
-                        </div>
+                    <form id="purchase" method="POST">                        
                         <div class="mb-3">
                             <label for="address">Dirección</label>
-                            <input type="text" class="form-control" id="address" placeholder="" required="">
-                            <div class="invalid-feedback"> Validar. </div>
+                            <input type="text" class="form-control" id="address" maxlength="150" required>                            
                         </div>
                         <div class="row">
-                            <div class="col-md-5 mb-3">
-                                <label for="country">Ciudad</label>
-                                <select class="custom-select d-block w-100" id="country" required="">
-                                    <option value="">Selecciona</option>
-                                    <option>Mexico</option>
+                            <div class="col-6">
+                                <label for="city">Estado</label>
+                                <select class="custom-select d-block w-100" id="city" required>
+                                    <option value="">Selecciona un estado</option>
+                                    <option value="Aguascalientes">Aguascalientes</option>
+                                    <option value="Baja California">Baja California</option>
+                                    <option value="Baja California Sur">Baja California Sur</option>
+                                    <option value="Campeche">Campeche</option>
+                                    <option value="Ciudad de México">Ciudad de México</option>                                    
+                                    <option value="Chiapas">Chiapas</option>
+                                    <option value="Chihuahua">Chihuahua</option>
+                                    <option value="Coahuila">Coahuila</option>
+                                    <option value="Colima">Colima</option>
+                                    <option value="Durango">Durango</option>
+                                    <option value="Estado de México">Estado de México</option>
+                                    <option value="Guanajuato">Guanajuato</option>
+                                    <option value="Guerrero">Guerrero</option>
+                                    <option value="Hidalgo">Hidalgo</option>
+                                    <option value="Jalisco">Jalisco</option>                                    
+                                    <option value="Michoacán">Michoacán</option>
+                                    <option value="Morelos">Morelos</option>
+                                    <option value="Nayarit">Nayarit</option>
+                                    <option value="Nuevo León">Nuevo León</option>
+                                    <option value="Oaxaca">Oaxaca</option>
+                                    <option value="Puebla">Puebla</option>
+                                    <option value="Querétaro">Querétaro</option>
+                                    <option value="Quintana Roo">Quintana Roo</option>
+                                    <option value="San Luis Potosí">San Luis Potosí</option>
+                                    <option value="Sinaloa">Sinaloa</option>
+                                    <option value="Sonora">Sonora</option>
+                                    <option value="Tabasco">Tabasco</option>
+                                    <option value="Tamaulipas">Tamaulipas</option>
+                                    <option value="Tlaxcala">Tlaxcala</option>
+                                    <option value="Veracruz">Veracruz</option>
+                                    <option value="Yucatán">Yucatán</option>
+                                    <option value="Zacatecas">Zacatecas</option>
                                 </select>
-                                <div class="invalid-feedback"> Seleccionar una Ciudad. </div>
-                            </div>
-                         
-                            
-                        </div>
-                        <hr class="mb-4">
-                        
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="save-info">
-                            <label class="custom-control-label" for="save-info">Guardar Información para Proximas Compras</label>
-                        </div>
+                            </div>    
+                            <div class="col-6">
+                                <label for="zipcode">Código postal</label>
+                                <input type="text" class="form-control d-block w-100" id="zipcode" minlength="5" maxlength="5" pattern="[0-9]+" title="El código se compone de 5 números" required>                   
+                            </div>                                                   
+                        </div>                        
                         <hr class="mb-4">
                         <h4 class="mb-3">Metodo de Pago</h4>
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
-                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
-                                <label class="custom-control-label" for="credit">Credit card</label>
+                                <input id="credit" value="Tarjeta de crédito" name="method" type="radio" class="custom-control-input" checked required>
+                                <label class="custom-control-label" for="credit">Tarjeta de crédito</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                                <label class="custom-control-label" for="debit">Debit card</label>
-                            </div>
+                                <input id="debit" value="Tarjeta de débito" name="method" type="radio" class="custom-control-input" required>
+                                <label class="custom-control-label" for="debit">Tarjeta de débito</label>
+                            </div>       
                             <div class="custom-control custom-radio">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                                <label class="custom-control-label" for="paypal">PayPal</label>
-                            </div>
+                                <input id="paypal" value="Paypal" name="method" type="radio" class="custom-control-input" required>
+                                <label class="custom-control-label" for="paypal">Paypal</label>
+                            </div>       
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-name">Nombre de Banco</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-                                <div class="invalid-feedback"> Nombre de Tarjeta Requerido </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col mb-3">
                                 <label for="cc-number">Numero de Tarjeta</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-                                <div class="invalid-feedback"> El numero es Requerido </div>
+                                <input type="text" class="form-control" id="cc-number" placeholder="" required="">                      
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 mb-3">
+                            <div class="col mb-3">
                                 <label for="cc-expiration">Expiración</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-                                <div class="invalid-feedback"> Expiration date required </div>
+                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required=""> 
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="cc-cvv">CVV</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-                                <div class="invalid-feedback"> Security code required </div>
+                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required=""> 
                             </div>
                         </div>
                         <hr class="mb-4">

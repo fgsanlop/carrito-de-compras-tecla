@@ -27,5 +27,21 @@ module.exports = {
         price: Joi.number().precision(2).min(1).max(999999999999).required(),
         picture: Joi.string().required().max(300),
         stock: Joi.number().integer().positive().required().max(999999)
-    })
+    }),
+
+    purchase: Joi.object().keys({
+        address: Joi.string().max(150).required(),
+        city: Joi.string().max(30).required(),
+        zipcode: Joi.string().max(5).regex(/^[0-9]+$/).required(),
+        method: Joi.string().max(30).required(),
+        total: Joi.number().precision(2).min(1).max(999999999999).required(),
+        products: Joi.array().required().items(
+            Joi.object().keys({
+                id: Joi.number().required(),
+                price: Joi.number().precision(2).min(1).max(999999999999).required(),
+                quantity: Joi.number().min(1).required(),
+                subtotal: Joi.number().precision(2).min(1).max(999999999999).required(),
+            })
+        )
+    }) 
 }

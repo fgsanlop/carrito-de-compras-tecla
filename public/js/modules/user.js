@@ -26,7 +26,7 @@ export default class User {
     }     
     
     signup = async () => {        
-        let req = await fetch(`${this.link}/signup`, 
+        let req = await fetch(`${this.link}/register`, 
         {
             method: 'POST',
             headers: {
@@ -36,8 +36,8 @@ export default class User {
             body: JSON.stringify({
                 "email": this.email,
                 "pass": this.pass,
-                "name": this.nombres,
-                "last_name": this.apellidos
+                "name": this.name,
+                "last_name": this.last_name
             })
         })
         return await req.json();    

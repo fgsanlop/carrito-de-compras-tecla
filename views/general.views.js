@@ -39,27 +39,67 @@ router.get('/', (req, res) => {
 })
 
 router.get('/categories', (req, res) => {
-    res.render('categories');
+    let datos = datosUsuario(req.cookies.token);
+    if(!datos){
+        res.render('categories')
+    }
+    else
+        res.render('categories', {login: {
+            name: datos.name,
+            last_name: datos.last_name
+        }})
 })
 
 router.get('/cart', (req, res) => {
-    res.render('cart');
+    let datos = datosUsuario(req.cookies.token);
+    if(!datos){
+        res.render('cart')
+    }
+    else
+        res.render('cart', {login: {
+            name: datos.name,
+            last_name: datos.last_name
+        }})
 })
 
 router.get('/product', (req, res) => {
-    res.render('product');
+    let datos = datosUsuario(req.cookies.token);
+    if(!datos){
+        res.render('product')
+    }
+    else
+        res.render('product', {login: {
+            name: datos.name,
+            last_name: datos.last_name
+        }})
 })
 
 router.get('/search', (req, res) => {
-    res.render('search');
+    let datos = datosUsuario(req.cookies.token);
+    if(!datos){
+        res.render('search')
+    }
+    else
+        res.render('search', {login: {
+            name: datos.name,
+            last_name: datos.last_name
+        }})
 })
 
-router.get('/checkout', middjwt.loggeadoCheckOutDatos, (req, res) => {    
-    res.render('checkout');
+router.get('/checkout', middjwt.loggeadoCheckOutDatos, (req, res) => { 
+    let datos = datosUsuario(req.cookies.token);   
+    res.render('checkout', {login: {
+        name: datos.name,
+        last_name: datos.last_name
+    }})
 })
 
-router.get('/purchases', middjwt.loggeado, (req, res) => {    
-    res.render('purchases');
+router.get('/purchases', middjwt.loggeadoCheckOutDatos, (req, res) => { 
+    let datos = datosUsuario(req.cookies.token);   
+    res.render('purchases', {login: {
+        name: datos.name,
+        last_name: datos.last_name
+    }})
 })
 
 router.get('/user', middjwt.loggeado, (req, res) => {    

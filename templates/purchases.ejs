@@ -1,0 +1,23 @@
+<%- include("include/header") %>
+<body>
+<%- include("include/navbar-user") %>
+<main>
+
+    <section class="container mt-n4 mb-5 table-responsive">
+      <h1>Compras realizadas</h1>
+      <table class="table my-4" id="purchases">
+        <tr>
+          <th>ID compra</th>
+          <th>Fecha</th>
+          <th>Dirección</th>
+          <th>Estado</th>
+          <th>CP</th>
+          <th>Método de pago</th>
+          <th>Total</th>
+          <th>Detalles</th>
+        </tr>
+      </table>
+    </section>
+</main>
+<script type="module" src="/js/purchases.js"></script>
+<%- include("include/footer") %>

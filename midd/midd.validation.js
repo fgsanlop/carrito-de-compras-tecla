@@ -41,9 +41,20 @@ const validarRegistroModProducto = async (req, res, next) => {
     }
 } 
 
+const validarCompra = async (req, res, next) => {
+    try{
+        await Joi.attempt(req.body, validations.purchase, 'Datos incorrectos')
+        return next()
+    }catch (err){
+        console.log(err)
+        res.status(500).json({error: err.message})
+    }
+} 
+
 module.exports = {
     validarLogin,
     validarSignUp,
     validarActualizacionUsuario,
-    validarRegistroModProducto
+    validarRegistroModProducto,
+    validarCompra
 }

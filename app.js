@@ -11,10 +11,13 @@ const Role = require('./db/roles');
 const User = require('./db/users');
 const Categorie = require('./db/categories');
 const Product = require('./db/products');
+const Purchase = require('./db/purchases');
+const PurchaseDetail = require('./db/purchases.detail');
 //Views
 const productViews = require('./views/product.views');
 const categoryViews = require('./views/category.views');
 const userViews = require('./views/user.views');
+const purchaseViews = require('./views/purchase.views');
 const generalViews = require('./views/general.views');
 //Middlewares globales
 app.use(express.json());
@@ -33,21 +36,26 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/templates');
 app.use(cookieParser());
+
 //Rutas
 app.use('/api', productViews);
 app.use('/api', categoryViews);
 app.use('/api', userViews);
-
-app.use(generalViews);
+app.use('/api', purchaseViews);
+app.use(generalViews); //EJS
 
 //Correr servidor y conexion a BD
 const serverStart = async () => {
     try {                
         await sequelize.authenticate();        
-        /*await Role.sync({alter:true});
-        await User.sync({alter:true});
+        /*
+        await Role.sync({alter:true});
         await Categorie.sync({alter:true});
-        await Product.sync({alter:true});  */      
+        await User.sync({alter:true});        
+        await Product.sync({alter:true});  
+        await Purchase.sync({alter:true});
+        await PurchaseDetail.sync({alter:true})
+        */
 
         //Parametros iniciales para roles, aqui tambien entrarian categorias (datos precargados)
         await Role.findOrCreate({
